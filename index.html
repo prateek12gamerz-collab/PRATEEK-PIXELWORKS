@@ -1,0 +1,634 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRATEEK PIXELWORKS</title>
+
+<meta name="theme-color" content="#080811">
+<meta name="description" content="Prateek Pixelworks - Turning Imagination into Games.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23080811'/%3E%3Ctext x='50' y='70' font-size='55' font-weight='bold' text-anchor='middle' fill='%23a56aff'%3EPP%3C/text%3E%3C/svg%3E">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+:root {
+  --purple: #a45bff;
+  --blue: #35c5ff;
+  --dark: #080811;
+}
+
+body {
+  background: var(--dark);
+  color: white;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #080811;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  animation: hideLoader .6s ease 2s forwards;
+}
+
+.loader-logo {
+  font-size: 85px;
+  font-weight: bold;
+  color: var(--purple);
+  text-shadow: 0 0 35px var(--purple);
+  animation: pulse 1s infinite alternate;
+}
+
+#loader h2 {
+  font-size: 19px;
+  text-align: center;
+}
+
+#loader p {
+  color: var(--blue);
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+.loading-bar {
+  width: 160px;
+  height: 4px;
+  background: linear-gradient(90deg,var(--purple),var(--blue));
+  border-radius: 10px;
+  animation: load 1.5s ease;
+}
+
+@keyframes hideLoader {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@keyframes pulse {
+  to { transform: scale(1.15); }
+}
+
+@keyframes load {
+  from { width: 0; }
+  to { width: 160px; }
+}
+
+/* HEADER */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 17px 5%;
+  background: rgba(12,12,27,.96);
+  border-bottom: 1px solid #42236a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--purple);
+  font-size: 17px;
+  font-weight: bold;
+  text-shadow: 0 0 12px var(--purple);
+}
+
+.pp {
+  border: 2px solid var(--purple);
+  border-radius: 8px;
+  padding: 5px 8px;
+  color: white;
+  background: #201035;
+  box-shadow: 0 0 15px var(--purple);
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: .3s;
+}
+
+nav a:hover {
+  color: var(--blue);
+}
+
+.menu {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 27px;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 85vh;
+  padding: 50px 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background:
+  radial-gradient(ellipse at 50% 50%, #321456, #080811 70%);
+}
+
+.orb {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border: 1px solid #a45bff55;
+  border-radius: 50%;
+  animation: rotate 12s linear infinite;
+}
+
+.orb2 {
+  width: 400px;
+  height: 400px;
+  animation-direction: reverse;
+}
+
+@keyframes rotate {
+  to { transform: rotate(360deg); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-logo {
+  font-size: 85px;
+  font-weight: 900;
+  color: #c39aff;
+  text-shadow: 0 0 15px var(--purple),
+               0 0 40px #7628da;
+  animation: appear 1.3s ease;
+}
+
+.hero h2 {
+  font-size: 22px;
+  margin-top: 20px;
+  color: white;
+}
+
+.hero p {
+  color: #c7c2d5;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 25px;
+  margin-top: 30px;
+  background: linear-gradient(100deg,#7738e8,#b24cff);
+  border-radius: 9px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 0 20px #943aff88;
+  transition: .3s;
+}
+
+.btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 35px var(--purple);
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* SECTIONS */
+
+section {
+  padding: 75px 7%;
+  text-align: center;
+}
+
+.title {
+  color: #bd91ff;
+  font-size: 32px;
+  margin-bottom: 18px;
+}
+
+.line {
+  width: 65px;
+  height: 4px;
+  margin: 0 auto 35px;
+  background: linear-gradient(90deg,var(--purple),var(--blue));
+  border-radius: 10px;
+}
+
+.about p, .vision p {
+  max-width: 650px;
+  margin: auto;
+  line-height: 1.9;
+  color: #c5c1d2;
+}
+
+/* GAME CARDS */
+
+.games {
+  background: #10101d;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 22px;
+  max-width: 950px;
+  margin: auto;
+}
+
+.game-card {
+  background: linear-gradient(145deg,#282047,#121222);
+  border: 1px solid #7946b2;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: .4s;
+}
+
+.game-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 25px #a45bff66;
+}
+
+.game-art {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 65px;
+  background: radial-gradient(circle,#6236a5,#111120);
+}
+
+.game-card h3 {
+  color: #d0b2ff;
+  margin: 17px 10px 10px;
+}
+
+.game-card p {
+  color: #bbb6ca;
+  font-size: 14px;
+  padding: 0 15px;
+  line-height: 1.6;
+}
+
+.status {
+  display: inline-block;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: bold;
+  margin: 18px 0;
+}
+
+/* UPCOMING */
+
+.upcoming {
+  background: radial-gradient(circle,#25133e,#080811);
+}
+
+.upcoming-box {
+  max-width: 650px;
+  margin: auto;
+  padding: 35px 20px;
+  border: 1px solid var(--purple);
+  border-radius: 15px;
+  background: #191326;
+  box-shadow: 0 0 25px #8139d944;
+}
+
+.upcoming-box h3 {
+  color: #c59cff;
+  margin-bottom: 15px;
+  font-size: 23px;
+}
+
+.upcoming-box p {
+  color: #c1bbd1;
+  line-height: 1.8;
+}
+
+/* VISION */
+
+.vision {
+  background: #10101b;
+}
+
+/* CONTACT */
+
+.contact p {
+  color: #c2bdd0;
+  line-height: 1.9;
+}
+
+.contact .contact-text {
+  color: var(--blue);
+  margin-top: 15px;
+}
+
+/* FOOTER */
+
+footer {
+  background: #10101b;
+  border-top: 1px solid #42236a;
+  padding: 30px 15px;
+  text-align: center;
+  color: #aaa;
+  font-size: 13px;
+  line-height: 2;
+}
+
+footer strong {
+  color: var(--purple);
+}
+
+/* MOBILE */
+
+@media(max-width:650px) {
+
+  header {
+    padding: 15px 5%;
+  }
+
+  .logo {
+    font-size: 14px;
+  }
+
+  .menu {
+    display: block;
+  }
+
+  nav {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: #151326;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--purple);
+  }
+
+  nav.show {
+    display: flex;
+  }
+
+  nav a {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .hero {
+    min-height: 80vh;
+  }
+
+  .hero-logo {
+    font-size: 48px;
+  }
+
+  .hero h2 {
+    font-size: 19px;
+  }
+
+  section {
+    padding: 60px 6%;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADING SCREEN -->
+
+<div id="loader">
+  <div class="loader-logo">PP</div>
+  <h2>PRATEEK PIXELWORKS</h2>
+  <p>TURNING IMAGINATION INTO GAMES</p>
+  <div class="loading-bar"></div>
+</div>
+
+<!-- HEADER -->
+
+<header>
+
+  <div class="logo">
+    <span class="pp">PP</span>
+    PRATEEK PIXELWORKS
+  </div>
+
+  <button class="menu" onclick="toggleMenu()">☰</button>
+
+  <nav id="nav">
+    <a href="#home" onclick="closeMenu()">Home</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#games" onclick="closeMenu()">Games</a>
+    <a href="#upcoming" onclick="closeMenu()">Upcoming</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+  </nav>
+
+</header>
+
+<main>
+
+<!-- HOME -->
+
+<div class="hero" id="home">
+
+  <div class="orb"></div>
+  <div class="orb orb2"></div>
+
+  <div class="hero-content">
+
+    <div class="hero-logo">
+      PRATEEK<br>PIXELWORKS
+    </div>
+
+    <h2>Turning Imagination into Games.</h2>
+
+    <p>We Build Worlds. You Play Them.</p>
+
+    <a href="#games" class="btn">
+      EXPLORE OUR GAMES →
+    </a>
+
+  </div>
+</div>
+
+<!-- ABOUT -->
+
+<section class="about" id="about">
+
+  <h2 class="title">ABOUT US</h2>
+  <div class="line"></div>
+
+  <p>
+    Welcome to Prateek Pixelworks!
+    We are an independent game development studio
+    focused on creating exciting gaming experiences.
+    Our mission is to turn creative ideas into amazing
+    games that players will love.
+  </p>
+
+</section>
+
+<!-- GAMES -->
+
+<section class="games" id="games">
+
+  <h2 class="title">OUR GAMES</h2>
+  <div class="line"></div>
+
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-art">🏰</div>
+      <h3>PROJECT ONE</h3>
+      <p>A new gaming adventure is in the works.</p>
+      <span class="status">COMING SOON</span>
+    </div>
+
+    <div class="game-card">
+      <div class="game-art">🏎️</div>
+      <h3>PROJECT TWO</h3>
+      <p>Get ready for an exciting experience.</p>
+      <span class="status">COMING SOON</span>
+    </div>
+
+    <div class="game-card">
+      <div class="game-art">🚀</div>
+      <h3>PROJECT THREE</h3>
+      <p>A whole new world is waiting.</p>
+      <span class="status">COMING SOON</span>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- UPCOMING -->
+
+<section class="upcoming" id="upcoming">
+
+  <h2 class="title">UPCOMING GAMES</h2>
+  <div class="line"></div>
+
+  <div class="upcoming-box">
+    <h3>THE FUTURE IS LOADING...</h3>
+
+    <p>
+      New worlds. New adventures. New experiences.
+      Stay tuned for our upcoming game projects!
+    </p>
+  </div>
+
+</section>
+
+<!-- VISION -->
+
+<section class="vision">
+
+  <h2 class="title">OUR VISION</h2>
+  <div class="line"></div>
+
+  <p>
+    Imagine. Create. Innovate.<br><br>
+    Building unforgettable gaming experiences,
+    one pixel at a time.
+  </p>
+
+</section>
+
+<!-- CONTACT -->
+
+<section class="contact" id="contact">
+
+  <h2 class="title">CONTACT US</h2>
+  <div class="line"></div>
+
+  <p>
+    Have an idea or want to connect with us?
+    <br>
+    Get in touch with Prateek Pixelworks.
+  </p>
+
+  <p class="contact-text">
+    Email: Contact details coming soon.
+  </p>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+
+  <strong>PRATEEK PIXELWORKS</strong>
+
+  <p>Turning Imagination into Games.</p>
+
+  <p>© 2026 PRATEEK PIXELWORKS. All Rights Reserved.</p>
+
+</footer>
+
+<script>
+
+function toggleMenu() {
+  document.getElementById("nav").classList.toggle("show");
+}
+
+function closeMenu() {
+  document.getElementById("nav").classList.remove("show");
+}
+
+</script>
+
+</body>
+</html>
