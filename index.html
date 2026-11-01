@@ -4,642 +4,1009 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>PRATEEK PIXELWORKS</title>
-
+<title>PRATEEK PIXELWORKS | Game Studio</title>
 <meta name="theme-color" content="#080811">
-<meta name="description" content="Prateek Pixelworks - Turning Imagination into Games.">
+<meta name="description" content="PRATEEK PIXELWORKS - Turning Imagination into Games.">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23080811'/%3E%3Ctext x='50' y='70' font-size='55' font-weight='bold' text-anchor='middle' fill='%23a56aff'%3EPP%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23080811'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle' fill='%23a45bff' font-family='Arial' font-weight='bold'%3EPP%3C/text%3E%3C/svg%3E">
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --purple: #a45bff;
-  --blue: #35c5ff;
-  --dark: #080811;
+  --purple:#a45bff;
+  --blue:#35c5ff;
+  --dark:#080811;
+  --card:#111121;
+  --white:#f7f4ff;
+  --muted:#aaa8bd;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  scroll-behavior:smooth;
 }
 
 body {
-  background: var(--dark);
-  color: white;
-  font-family: Arial, sans-serif;
-  overflow-x: hidden;
+  background:var(--dark);
+  color:var(--white);
+  font-family:'Poppins',Arial,sans-serif;
+  overflow-x:hidden;
 }
 
+a {
+  text-decoration:none;
+  color:inherit;
+}
+
+button {
+  font-family:inherit;
+}
+
+/* LOADING SCREEN */
+
 #loader {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: #080811;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  animation: hideLoader .6s ease 2s forwards;
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:#080811;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:18px;
+  transition:opacity .8s ease, visibility .8s ease;
+}
+
+#loader.hide {
+  opacity:0;
+  visibility:hidden;
 }
 
 .loader-logo {
-  font-size: 85px;
-  font-weight: bold;
-  color: var(--purple);
-  text-shadow: 0 0 35px var(--purple);
-  animation: pulse 1s infinite alternate;
+  font-family:'Orbitron',sans-serif;
+  font-size:75px;
+  font-weight:900;
+  letter-spacing:-5px;
+  background:linear-gradient(135deg,#fff,var(--purple),var(--blue));
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:loaderPulse 1s infinite alternate;
+  filter:drop-shadow(0 0 20px rgba(164,91,255,.7));
 }
 
-#loader h2 {
-  font-size: 19px;
-  text-align: center;
+.loader-name {
+  font-family:'Orbitron',sans-serif;
+  font-size:12px;
+  letter-spacing:5px;
+  color:#ddd;
+  text-align:center;
 }
 
-#loader p {
-  color: var(--blue);
-  font-size: 10px;
-  letter-spacing: 3px;
+.loader-line {
+  width:180px;
+  height:3px;
+  background:#24243b;
+  border-radius:20px;
+  overflow:hidden;
 }
 
-.loading-bar {
-  width: 160px;
-  height: 4px;
-  background: linear-gradient(90deg,var(--purple),var(--blue));
-  border-radius: 10px;
-  animation: load 1.5s ease;
+.loader-progress {
+  width:40%;
+  height:100%;
+  background:linear-gradient(90deg,var(--purple),var(--blue));
+  animation:loading 1.5s ease-in-out infinite;
+  border-radius:20px;
 }
 
-@keyframes hideLoader {
-  to {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
+@keyframes loaderPulse {
+  from {transform:scale(.9);opacity:.7}
+  to {transform:scale(1.08);opacity:1}
 }
 
-@keyframes pulse {
-  to { transform: scale(1.15); }
+@keyframes loading {
+  from {transform:translateX(-120%)}
+  to {transform:translateX(350%)}
 }
 
-@keyframes load {
-  from { width: 0; }
-  to { width: 160px; }
+/* BACKGROUND */
+
+#particles {
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.particle {
+  position:absolute;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:var(--blue);
+  opacity:.5;
+  animation:particleFloat linear infinite;
+  box-shadow:0 0 10px var(--blue);
+}
+
+@keyframes particleFloat {
+  from {transform:translateY(110vh);opacity:0}
+  15% {opacity:.6}
+  85% {opacity:.5}
+  to {transform:translateY(-10vh);opacity:0}
+}
+
+.glow {
+  position:fixed;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  filter:blur(110px);
+  opacity:.12;
+  z-index:-2;
+  pointer-events:none;
+}
+
+.glow-one {
+  background:var(--purple);
+  top:10%;
+  left:-150px;
+}
+
+.glow-two {
+  background:var(--blue);
+  right:-150px;
+  top:55%;
 }
 
 /* HEADER */
 
 header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  padding: 17px 5%;
-  background: rgba(12,12,27,.96);
-  border-bottom: 1px solid #42236a;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(8,8,17,.86);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(164,91,255,.2);
+}
+
+.navbar {
+  max-width:1250px;
+  margin:auto;
+  padding:17px 6%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  color: var(--purple);
-  font-size: 17px;
-  font-weight: bold;
-  text-shadow: 0 0 12px var(--purple);
+  font-family:'Orbitron',sans-serif;
+  font-size:19px;
+  font-weight:900;
+  letter-spacing:1px;
 }
 
-.pp {
-  border: 2px solid var(--purple);
-  border-radius: 8px;
-  padding: 5px 8px;
-  color: white;
-  background: #201035;
-  box-shadow: 0 0 15px var(--purple);
+.logo span {
+  color:var(--purple);
+  text-shadow:0 0 15px var(--purple);
 }
 
 nav {
-  display: flex;
-  gap: 20px;
+  display:flex;
+  align-items:center;
+  gap:28px;
 }
 
 nav a {
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  transition: .3s;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:1px;
+  color:#d7d4e5;
+  transition:.3s;
 }
 
 nav a:hover {
-  color: var(--blue);
+  color:var(--blue);
+  text-shadow:0 0 12px var(--blue);
 }
 
-.menu {
-  display: none;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 27px;
+.menu-btn {
+  display:none;
+  background:none;
+  color:white;
+  border:0;
+  font-size:27px;
+  cursor:pointer;
 }
 
 /* HERO */
 
 .hero {
-  min-height: 85vh;
-  padding: 50px 20px;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background:
-  radial-gradient(ellipse at 50% 50%, #321456, #080811 70%);
+  min-height:88vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  padding:80px 6%;
+  overflow:hidden;
 }
 
-.orb {
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  border: 1px solid #a45bff55;
-  border-radius: 50%;
-  animation: rotate 12s linear infinite;
+.hero-orb {
+  position:absolute;
+  border-radius:50%;
+  filter:blur(75px);
+  opacity:.2;
+  animation:orbMove 8s ease-in-out infinite alternate;
+  pointer-events:none;
+}
+
+.orb1 {
+  width:280px;
+  height:280px;
+  background:var(--purple);
+  left:5%;
+  top:10%;
 }
 
 .orb2 {
-  width: 400px;
-  height: 400px;
-  animation-direction: reverse;
+  width:300px;
+  height:300px;
+  background:var(--blue);
+  right:5%;
+  bottom:5%;
+  animation-delay:2s;
 }
 
-@keyframes rotate {
-  to { transform: rotate(360deg); }
+@keyframes orbMove {
+  to {transform:translate(40px,-30px) scale(1.2)}
 }
 
 .hero-content {
-  position: relative;
-  z-index: 2;
+  position:relative;
+  z-index:2;
+  animation:heroEnter 1.2s ease both;
 }
 
-.hero-logo {
-  font-size: 85px;
-  font-weight: 900;
-  color: #c39aff;
-  text-shadow: 0 0 15px var(--purple),
-               0 0 40px #7628da;
-  animation: appear 1.3s ease;
+@keyframes heroEnter {
+  from {opacity:0;transform:translateY(45px)}
+  to {opacity:1;transform:translateY(0)}
 }
 
-.hero h2 {
-  font-size: 22px;
-  margin-top: 20px;
-  color: white;
+.hero-badge {
+  display:inline-block;
+  border:1px solid rgba(164,91,255,.5);
+  background:rgba(164,91,255,.1);
+  color:#d9baff;
+  border-radius:30px;
+  padding:9px 18px;
+  font-size:11px;
+  letter-spacing:2px;
+  margin-bottom:25px;
+  animation:badgeGlow 2s infinite alternate;
+}
+
+@keyframes badgeGlow {
+  to {box-shadow:0 0 20px rgba(164,91,255,.35)}
+}
+
+.hero h1 {
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(37px,8vw,82px);
+  line-height:1.2;
+  font-weight:900;
+  letter-spacing:-2px;
+  margin-bottom:20px;
+}
+
+.gradient {
+  background:linear-gradient(90deg,var(--purple),var(--blue),#fff,var(--purple));
+  background-size:250%;
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:gradientMove 5s linear infinite;
+}
+
+@keyframes gradientMove {
+  to {background-position:250% center}
 }
 
 .hero p {
-  color: #c7c2d5;
-  margin-top: 15px;
-  font-size: 16px;
+  color:var(--muted);
+  font-size:17px;
+  margin-bottom:12px;
+}
+
+.hero .tagline {
+  color:white;
+  font-size:12px;
+  letter-spacing:4px;
+  margin-bottom:35px;
 }
 
 .btn {
-  display: inline-block;
-  padding: 15px 25px;
-  margin-top: 30px;
-  background: linear-gradient(100deg,#7738e8,#b24cff);
-  border-radius: 9px;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  box-shadow: 0 0 20px #943aff88;
-  transition: .3s;
+  display:inline-block;
+  padding:14px 27px;
+  border-radius:8px;
+  background:linear-gradient(100deg,var(--purple),#625cff);
+  color:white;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1px;
+  border:1px solid transparent;
+  transition:.3s;
+  box-shadow:0 0 20px rgba(164,91,255,.18);
 }
 
 .btn:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 35px var(--purple);
+  transform:translateY(-5px) scale(1.03);
+  box-shadow:0 0 30px rgba(164,91,255,.55);
 }
 
-@keyframes appear {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.btn-outline {
+  background:transparent;
+  border-color:var(--purple);
 }
 
-/* SECTIONS */
+/* GENERAL SECTIONS */
 
 section {
-  padding: 75px 7%;
-  text-align: center;
+  padding:95px 7%;
+  scroll-margin-top:70px;
 }
 
-.title {
-  color: #bd91ff;
-  font-size: 32px;
-  margin-bottom: 18px;
+.section-title {
+  text-align:center;
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(25px,5vw,38px);
+  margin-bottom:15px;
 }
 
-.line {
-  width: 65px;
-  height: 4px;
-  margin: 0 auto 35px;
-  background: linear-gradient(90deg,var(--purple),var(--blue));
-  border-radius: 10px;
+.section-subtitle {
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:50px;
 }
 
-.about p, .vision p {
-  max-width: 650px;
-  margin: auto;
-  line-height: 1.9;
-  color: #c5c1d2;
+.reveal {
+  opacity:0;
+  transform:translateY(35px);
+  transition:opacity .8s ease,transform .8s ease;
 }
 
-/* GAME CARDS */
-
-.games {
-  background: #10101d;
+.reveal.show {
+  opacity:1;
+  transform:translateY(0);
 }
 
-.game-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  gap: 22px;
-  max-width: 950px;
-  margin: auto;
+/* ABOUT */
+
+.about-box {
+  max-width:850px;
+  margin:auto;
+  text-align:center;
+  color:var(--muted);
+  font-size:15px;
+  line-height:2;
+}
+
+.about-highlight {
+  color:white;
+  font-weight:600;
+}
+
+/* GAMES */
+
+.games-section {
+  background:linear-gradient(180deg,#0b0b17,#0d0d1b);
+  border-top:1px solid rgba(164,91,255,.1);
+  border-bottom:1px solid rgba(164,91,255,.1);
+}
+
+.games-grid {
+  max-width:1150px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:30px;
 }
 
 .game-card {
-  background: linear-gradient(145deg,#282047,#121222);
-  border: 1px solid #7946b2;
-  border-radius: 14px;
-  overflow: hidden;
-  transition: .4s;
+  background:linear-gradient(145deg,#17172a,#0d0d18);
+  border:1px solid rgba(164,91,255,.22);
+  border-radius:18px;
+  overflow:hidden;
+  transition:.4s;
+  min-width:0;
 }
 
 .game-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 0 25px #a45bff66;
+  transform:translateY(-9px);
+  border-color:var(--purple);
+  box-shadow:0 15px 45px rgba(164,91,255,.17);
 }
 
 .game-art {
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 65px;
-  background: radial-gradient(circle,#6236a5,#111120);
+  height:205px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
 }
 
-.game-card h3 {
-  color: #d0b2ff;
-  margin: 17px 10px 10px;
+.pizza-art {
+  background:
+    radial-gradient(circle at 20% 20%,rgba(255,255,255,.2),transparent 25%),
+    linear-gradient(135deg,#45120f,#c33b19 55%,#ffae29);
 }
 
-.game-card p {
-  color: #bbb6ca;
-  font-size: 14px;
-  padding: 0 15px;
-  line-height: 1.6;
+.dino-art {
+  background:
+    radial-gradient(circle at 80% 20%,rgba(130,255,170,.25),transparent 30%),
+    linear-gradient(135deg,#062c2b,#126b55 55%,#76ad37);
 }
 
-.status {
-  display: inline-block;
-  color: var(--blue);
-  font-size: 12px;
-  font-weight: bold;
-  margin: 18px 0;
+.game-art:before,
+.game-art:after {
+  content:"";
+  position:absolute;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:50%;
+  width:230px;
+  height:230px;
+  animation:ringRotate 12s linear infinite;
+}
+
+.game-art:after {
+  width:170px;
+  height:170px;
+  animation-direction:reverse;
+}
+
+@keyframes ringRotate {
+  to {transform:rotate(360deg)}
+}
+
+.art-emoji {
+  font-size:105px;
+  z-index:2;
+  filter:drop-shadow(0 12px 15px rgba(0,0,0,.4));
+  animation:floatIcon 3s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+  0%,100% {transform:translateY(0) rotate(-4deg)}
+  50% {transform:translateY(-12px) rotate(4deg)}
+}
+
+.art-label {
+  position:absolute;
+  bottom:13px;
+  left:17px;
+  color:white;
+  font-family:'Orbitron',sans-serif;
+  font-size:9px;
+  letter-spacing:3px;
+  z-index:3;
+}
+
+.game-info {
+  padding:23px;
+}
+
+.game-info h3 {
+  font-family:'Orbitron',sans-serif;
+  font-size:22px;
+  margin-bottom:10px;
+}
+
+.game-info p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.8;
+  margin-bottom:12px;
+}
+
+.game-status {
+  display:inline-block;
+  font-size:10px;
+  letter-spacing:1px;
+  color:#7dffb0;
+  background:rgba(42,210,120,.1);
+  border:1px solid rgba(42,210,120,.3);
+  border-radius:30px;
+  padding:7px 12px;
+  margin:5px 0 17px;
+}
+
+.game-embed {
+  width:100%;
+  height:420px;
+  position:relative;
+  background:#05050b;
+  border-radius:10px;
+  overflow:hidden;
+  border:1px solid rgba(164,91,255,.25);
+}
+
+.game-embed iframe {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+.game-buttons {
+  display:flex;
+  gap:10px;
+  margin-top:17px;
+}
+
+.game-buttons .btn {
+  flex:1;
+  text-align:center;
+  padding:12px 8px;
+  font-size:10px;
 }
 
 /* UPCOMING */
 
 .upcoming {
-  background: radial-gradient(circle,#25133e,#080811);
+  max-width:850px;
+  margin:auto;
+  padding:40px 25px;
+  text-align:center;
+  border:1px dashed rgba(164,91,255,.45);
+  background:rgba(164,91,255,.04);
+  border-radius:17px;
+  transition:.3s;
 }
 
-.upcoming-box {
-  max-width: 650px;
-  margin: auto;
-  padding: 35px 20px;
-  border: 1px solid var(--purple);
-  border-radius: 15px;
-  background: #191326;
-  box-shadow: 0 0 25px #8139d944;
+.upcoming:hover {
+  border-color:var(--blue);
+  box-shadow:0 0 30px rgba(53,197,255,.08);
 }
 
-.upcoming-box h3 {
-  color: #c59cff;
-  margin-bottom: 15px;
-  font-size: 23px;
+.rocket {
+  font-size:48px;
+  margin-bottom:15px;
+  animation:rocketFloat 2s ease-in-out infinite;
 }
 
-.upcoming-box p {
-  color: #c1bbd1;
-  line-height: 1.8;
+@keyframes rocketFloat {
+  50% {transform:translateY(-12px) rotate(8deg)}
+}
+
+.upcoming p {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.8;
+  margin-top:12px;
 }
 
 /* VISION */
 
 .vision {
-  background: #10101b;
+  text-align:center;
+  background:linear-gradient(180deg,#080811,#101027);
+}
+
+.vision p {
+  max-width:750px;
+  margin:auto;
+  color:var(--muted);
+  line-height:2;
+  font-size:14px;
 }
 
 /* CONTACT */
 
-.contact p {
-  color: #c2bdd0;
-  line-height: 1.9;
+.contact-box {
+  max-width:750px;
+  margin:auto;
+  text-align:center;
+  padding:35px 20px;
+  background:linear-gradient(145deg,#17172a,#0d0d18);
+  border:1px solid rgba(164,91,255,.25);
+  border-radius:17px;
+  box-shadow:0 0 35px rgba(164,91,255,.07);
 }
 
-.contact .contact-text {
-  color: var(--blue);
-  margin-top: 15px;
+.contact-box h3 {
+  font-family:'Orbitron',sans-serif;
+  font-size:20px;
+  margin-bottom:12px;
+}
+
+.contact-box p {
+  color:var(--muted);
+  font-size:13px;
+  margin:10px 0;
+}
+
+.contact-details {
+  margin-top:22px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.contact-item {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  color:#ded9f1;
+  font-size:13px;
+  overflow-wrap:anywhere;
+}
+
+.contact-item a {
+  color:var(--blue);
+  transition:.3s;
+}
+
+.contact-item a:hover {
+  color:var(--purple);
+  text-shadow:0 0 12px var(--purple);
+}
+
+.contact-icon {
+  font-size:20px;
 }
 
 /* FOOTER */
 
 footer {
-  background: #10101b;
-  border-top: 1px solid #42236a;
-  padding: 30px 15px;
-  text-align: center;
-  color: #aaa;
-  font-size: 13px;
-  line-height: 2;
+  padding:30px 7%;
+  text-align:center;
+  border-top:1px solid rgba(164,91,255,.18);
+  color:var(--muted);
+  font-size:11px;
+  line-height:2;
 }
 
 footer strong {
-  color: var(--purple);
+  color:var(--purple);
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:2px;
 }
 
-/* MOBILE */
+/* RESPONSIVE */
 
-@media(max-width:650px) {
-
-  header {
-    padding: 15px 5%;
-  }
-
-  .logo {
-    font-size: 14px;
-  }
-
-  .menu {
-    display: block;
+@media(max-width:800px) {
+  .menu-btn {
+    display:block;
   }
 
   nav {
-    display: none;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    background: #151326;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    border-bottom: 1px solid var(--purple);
+    display:none;
+    position:absolute;
+    top:65px;
+    left:0;
+    width:100%;
+    background:#101020;
+    flex-direction:column;
+    gap:22px;
+    padding:25px;
+    border-bottom:1px solid rgba(164,91,255,.3);
   }
 
-  nav.show {
-    display: flex;
+  nav.active {
+    display:flex;
   }
 
-  nav a {
-    padding: 10px;
-    font-size: 16px;
-  }
-
-  .hero {
-    min-height: 80vh;
-  }
-
-  .hero-logo {
-    font-size: 48px;
-  }
-
-  .hero h2 {
-    font-size: 19px;
+  .games-grid {
+    grid-template-columns:1fr;
+    max-width:520px;
   }
 
   section {
-    padding: 60px 6%;
+    padding:75px 6%;
   }
 
-  .title {
-    font-size: 28px;
+  .hero {
+    min-height:78vh;
   }
 
+  .game-embed {
+    height:390px;
+  }
+}
+
+@media(max-width:400px) {
+  .logo {
+    font-size:15px;
+  }
+
+  .game-embed {
+    height:340px;
+  }
+
+  .game-art {
+    height:170px;
+  }
+
+  .art-emoji {
+    font-size:85px;
+  }
+
+  .game-buttons {
+    flex-direction:column;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    scroll-behavior:auto !important;
+    transition-duration:.01ms !important;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOADING SCREEN -->
-
 <div id="loader">
   <div class="loader-logo">PP</div>
-  <h2>PRATEEK PIXELWORKS</h2>
-  <p>TURNING IMAGINATION INTO GAMES</p>
-  <div class="loading-bar"></div>
+  <div class="loader-name">PRATEEK PIXELWORKS</div>
+  <div class="loader-line">
+    <div class="loader-progress"></div>
+  </div>
 </div>
 
-<!-- HEADER -->
+<div id="particles"></div>
+<div class="glow glow-one"></div>
+<div class="glow glow-two"></div>
 
 <header>
+  <div class="navbar">
+    <a href="#home" class="logo"><span>PP</span> PIXELWORKS</a>
 
-  <div class="logo">
-    <span class="pp">PP</span>
-    PRATEEK PIXELWORKS
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+
+    <nav id="nav">
+      <a href="#home" onclick="closeMenu()">HOME</a>
+      <a href="#about" onclick="closeMenu()">ABOUT</a>
+      <a href="#games" onclick="closeMenu()">GAMES</a>
+      <a href="#vision" onclick="closeMenu()">VISION</a>
+      <a href="#contact" onclick="closeMenu()">CONTACT</a>
+    </nav>
   </div>
-
-  <button class="menu" onclick="toggleMenu()">☰</button>
-
-  <nav id="nav">
-    <a href="#home" onclick="closeMenu()">Home</a>
-    <a href="#about" onclick="closeMenu()">About</a>
-    <a href="#games" onclick="closeMenu()">Games</a>
-    <a href="#upcoming" onclick="closeMenu()">Upcoming</a>
-    <a href="#contact" onclick="closeMenu()">Contact</a>
-  </nav>
-
 </header>
 
-<main>
+<!-- HERO -->
 
-<!-- HOME -->
-
-<div class="hero" id="home">
-
-  <div class="orb"></div>
-  <div class="orb orb2"></div>
+<section class="hero" id="home">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
 
   <div class="hero-content">
+    <div class="hero-badge">✦ INDEPENDENT GAME STUDIO ✦</div>
 
-    <div class="hero-logo">
-      PRATEEK<br>PIXELWORKS
-    </div>
+    <h1>
+      PRATEEK<br>
+      <span class="gradient">PIXELWORKS</span>
+    </h1>
 
-    <h2>Turning Imagination into Games.</h2>
+    <p>Turning Imagination into Games.</p>
+    <div class="tagline">WE BUILD WORLDS. YOU PLAY THEM.</div>
 
-    <p>We Build Worlds. You Play Them.</p>
-
-    <a href="#games" class="btn">
-      EXPLORE OUR GAMES →
-    </a>
-
+    <a href="#games" class="btn">EXPLORE OUR GAMES →</a>
   </div>
-</div>
+</section>
 
 <!-- ABOUT -->
 
-<section class="about" id="about">
+<section id="about" class="reveal">
+  <h2 class="section-title">ABOUT <span class="gradient">US</span></h2>
+  <p class="section-subtitle">A small studio with big imagination.</p>
 
-  <h2 class="title">ABOUT US</h2>
-  <div class="line"></div>
-
-  <p>
-    Welcome to Prateek Pixelworks!
-    We are an independent game development studio
-    focused on creating exciting gaming experiences.
-    Our mission is to turn creative ideas into amazing
-    games that players will love.
-  </p>
-
+  <div class="about-box">
+    <span class="about-highlight">PRATEEK PIXELWORKS</span> is a game development
+    studio built around creativity, imagination and fun.
+    We love creating interactive experiences and turning ideas into games.
+    Every great adventure begins with a small idea.
+    <br>
+    <span class="about-highlight">This is just the beginning of our journey!</span>
+  </div>
 </section>
 
 <!-- GAMES -->
 
-<section class="games" id="games">
+<section class="games-section" id="games">
+  <div class="reveal">
+    <h2 class="section-title">OUR <span class="gradient">GAMES</span></h2>
+    <p class="section-subtitle">Choose your game and start playing!</p>
+  </div>
 
-  <h2 class="title">OUR GAMES</h2>
-  <div class="line"></div>
+  <div class="games-grid">
 
-  <div class="game-grid">
+    <!-- PIZZA PARTY -->
 
-    <div class="game-card">
-      <div class="game-art">🏰</div>
-      <h3>PROJECT ONE</h3>
-      <p>A new gaming adventure is in the works.</p>
-      <span class="status">COMING SOON</span>
+    <div class="game-card reveal">
+      <div class="game-art pizza-art">
+        <div class="art-emoji">🍕</div>
+        <div class="art-label">ARCADE ADVENTURE</div>
+      </div>
+
+      <div class="game-info">
+        <h3>PIZZA PARTY</h3>
+        <p>Welcome to Pizza Party! Enjoy our first arcade game from PRATEEK PIXELWORKS.</p>
+
+        <span class="game-status">● PLAYABLE NOW</span>
+
+        <div class="game-embed">
+          <iframe
+            src="https://arcade.makecode.com/---codeembed#pub:S27340-07474-95650-45387"
+            title="Pizza Party"
+            allowfullscreen
+            sandbox="allow-scripts allow-same-origin">
+          </iframe>
+        </div>
+
+        <div class="game-buttons">
+          <a class="btn" href="https://arcade.makecode.com/S27340-07474-95650-45387" target="_blank" rel="noopener">OPEN IN MAKECODE ↗</a>
+        </div>
+      </div>
     </div>
 
-    <div class="game-card">
-      <div class="game-art">🏎️</div>
-      <h3>PROJECT TWO</h3>
-      <p>Get ready for an exciting experience.</p>
-      <span class="status">COMING SOON</span>
-    </div>
+    <!-- DINO HOARD -->
 
-    <div class="game-card">
-      <div class="game-art">🚀</div>
-      <h3>PROJECT THREE</h3>
-      <p>A whole new world is waiting.</p>
-      <span class="status">COMING SOON</span>
+    <div class="game-card reveal">
+      <div class="game-art dino-art">
+        <div class="art-emoji">🦖</div>
+        <div class="art-label">DINO ADVENTURE</div>
+      </div>
+
+      <div class="game-info">
+        <h3>DINO HOARD</h3>
+        <p>Enter the world of Dino Hoard! Discover our second arcade adventure.</p>
+
+        <span class="game-status">● PLAYABLE NOW</span>
+
+        <div class="game-embed">
+          <iframe
+            src="https://arcade.makecode.com/---codeembed#pub:S71119-38724-79591-70080"
+            title="Dino Hoard"
+            allowfullscreen
+            sandbox="allow-scripts allow-same-origin">
+          </iframe>
+        </div>
+
+        <div class="game-buttons">
+          <a class="btn" href="https://arcade.makecode.com/S71119-38724-79591-70080" target="_blank" rel="noopener">OPEN IN MAKECODE ↗</a>
+        </div>
+      </div>
     </div>
 
   </div>
-
 </section>
 
 <!-- UPCOMING -->
 
-<section class="upcoming" id="upcoming">
+<section id="upcoming" class="reveal">
+  <h2 class="section-title">UPCOMING <span class="gradient">GAMES</span></h2>
+  <p class="section-subtitle">More adventures are on the way.</p>
 
-  <h2 class="title">UPCOMING GAMES</h2>
-  <div class="line"></div>
-
-  <div class="upcoming-box">
-    <h3>THE FUTURE IS LOADING...</h3>
-
-    <p>
-      New worlds. New adventures. New experiences.
-      Stay tuned for our upcoming game projects!
-    </p>
+  <div class="upcoming">
+    <div class="rocket">🚀</div>
+    <h3>Something Big Is Coming!</h3>
+    <p>We are working on new ideas and exciting games.
+    Stay tuned for future releases from PRATEEK PIXELWORKS.</p>
   </div>
-
 </section>
 
 <!-- VISION -->
 
-<section class="vision">
-
-  <h2 class="title">OUR VISION</h2>
-  <div class="line"></div>
-
+<section class="vision reveal" id="vision">
+  <h2 class="section-title">OUR <span class="gradient">VISION</span></h2>
   <p>
-    Imagine. Create. Innovate.<br><br>
-    Building unforgettable gaming experiences,
-    one pixel at a time.
+    Our vision is to create fun and memorable gaming experiences.
+    We believe every big game starts with a small idea.
+    Our mission is to turn imagination into games and make every player
+    part of an exciting adventure.
   </p>
-
 </section>
 
 <!-- CONTACT -->
 
+<section id="contact" class="reveal">
+  <h2 class="section-title">CONTACT <span class="gradient">US</span></h2>
+  <p class="section-subtitle">Let's connect with PRATEEK PIXELWORKS.</p>
 
-<section class="contact" id="contact">
+  <div class="contact-box">
+    <h3>PRATEEK PIXELWORKS</h3>
+    <p>Have a question or want to connect with our studio?</p>
 
-  <h2 class="title">CONTACT US</h2>
-  <div class="line"></div>
+    <div class="contact-details">
 
-  <p>
-    Have an idea or want to connect with us?
-    <br>
-    Get in touch with Prateek Pixelworks.
-  </p>
+      <div class="contact-item">
+        <span class="contact-icon">✉️</span>
+        <span>Email:</span>
+        <a href="mailto:prateek12gamerz@gmail.com">prateek12gamerz@gmail.com</a>
+      </div>
 
-  <p class="contact-text">
-    📧 Email:
-    <a href="mailto:prateek12gamerz@gmail.com">
-      prateek12gamerz@gmail.com
-    </a>
-  </p>
+      <div class="contact-item">
+        <span class="contact-icon">📸</span>
+        <span>Instagram:</span>
+        <a href="https://www.instagram.com/prateekffm12/" target="_blank" rel="noopener">@prateekffm12</a>
+      </div>
 
-  <p class="contact-text">
-    📸 Instagram:
-    <a href="https://www.instagram.com/prateekffm12/"
-       target="_blank" rel="noopener noreferrer">
-      @prateekffm12
-    </a>
-  </p>
-
+    </div>
+  </div>
 </section>
-
-
-</main>
 
 <!-- FOOTER -->
 
 <footer>
-
   <strong>PRATEEK PIXELWORKS</strong>
-
-  <p>Turning Imagination into Games.</p>
-
-  <p>© 2026 PRATEEK PIXELWORKS. All Rights Reserved.</p>
-
+  <br>
+  Turning Imagination into Games.
+  <br>
+  We Build Worlds. You Play Them.
+  <br>
+  © 2026 PRATEEK PIXELWORKS. All Rights Reserved.
 </footer>
 
 <script>
 
+/* MOBILE MENU */
+
 function toggleMenu() {
-  document.getElementById("nav").classList.toggle("show");
+  document.getElementById("nav").classList.toggle("active");
 }
 
 function closeMenu() {
-  document.getElementById("nav").classList.remove("show");
+  document.getElementById("nav").classList.remove("active");
 }
+
+/* LOADING SCREEN */
+
+window.addEventListener("load", function() {
+  setTimeout(function() {
+    document.getElementById("loader").classList.add("hide");
+  }, 1000);
+});
+
+/* FLOATING PARTICLES */
+
+const particleBox = document.getElementById("particles");
+
+for (let i = 0; i < 35; i++) {
+  const particle = document.createElement("span");
+  particle.className = "particle";
+  particle.style.left = Math.random() * 100 + "%";
+  particle.style.animationDuration = (8 + Math.random() * 14) + "s";
+  particle.style.animationDelay = (-Math.random() * 15) + "s";
+  particleBox.appendChild(particle);
+}
+
+/* SCROLL REVEAL */
+
+const revealObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.12
+});
+
+document.querySelectorAll(".reveal").forEach(function(element) {
+  revealObserver.observe(element);
+});
 
 </script>
 
