@@ -1881,7 +1881,8 @@ function startSnakeGame() {
   setMiniMessage('Game on! Use the arrow keys or buttons.');
   drawSnakeGame();
 
-  miniGameInterval = setInterval(updateSnakeGame, 125);
+  // Slower movement makes Snake X easier to control.
+  miniGameInterval = setInterval(updateSnakeGame, 180);
 }
 
 function updateSnakeGame() {
@@ -1891,16 +1892,14 @@ function updateSnakeGame() {
 
   snakeDirection = { x: snakeNextDirection.x, y: snakeNextDirection.y };
 
-  const head = {
-    x: snakeBody[0].x + snakeDirection.x,
-    y: snakeBody[0].y + snakeDirection.y
-  };
+  // Crossing a border makes the snake appear on the opposite side.
 
-  const hitsWall =
-    head.x < 0 ||
-    head.y < 0 ||
-    head.x >= SNAKE_COLUMNS ||
-    head.y >= SNAKE_ROWS;
+
+
+  const head = {
+    x: (snakeBody[0].x + snakeDirection.x + SNAKE_COLUMNS) % SNAKE_COLUMNS,
+    y: (snakeBody[0].y + snakeDirection.y + SNAKE_ROWS) % SNAKE_ROWS
+  };
 
   const willEat = head.x === snakeFood.x && head.y === snakeFood.y;
   const bodyToCheck = willEat ? snakeBody : snakeBody.slice(0, -1);
@@ -1908,7 +1907,8 @@ function updateSnakeGame() {
     return part.x === head.x && part.y === head.y;
   });
 
-  if (hitsWall || hitsSelf) {
+  // The only way to lose is to run into the snake's own body.
+  if (hitsSelf) {
     endSnakeGame();
     return;
   }
