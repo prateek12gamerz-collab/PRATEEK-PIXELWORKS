@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#080811">
 <meta name="description" content="PRATEEK PIXELWORKS - Turning Imagination into Games.">
 <title>PRATEEK PIXELWORKS | Game Studio</title>
@@ -87,8 +87,8 @@ input:focus-visible {
   flex-direction: column;
   gap: 18px;
   background: #080811;
-  transition: opacity .8s ease, visibility .8s ease;
-  animation: loaderAutoHide .8s ease 5s forwards;
+  transition: opacity .3s ease, visibility .3s ease;
+  animation: loaderAutoHide .3s ease 2.7s forwards;
 }
 
 #loader.hide {
@@ -957,6 +957,46 @@ footer strong {
   touch-action: none;
 }
 
+.bs-power-controls {
+  width: min(100%, 360px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 10px auto 0;
+  padding: 8px 10px;
+  border: 1px solid rgba(132,211,255,.22);
+  border-radius: 12px;
+  background: rgba(17,27,58,.82);
+}
+.bs-power-controls[hidden] { display: none !important; }
+.bs-power-title {
+  color: #b9c9ea;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  margin-right: 3px;
+}
+.bs-power-btn {
+  min-width: 62px;
+  padding: 7px 9px;
+  border: 1px solid #5268a5;
+  border-radius: 8px;
+  background: #111f48;
+  color: #e8efff;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .6px;
+  touch-action: manipulation;
+}
+.bs-power-btn.active {
+  border-color: #7deaff;
+  color: #07112c;
+  background: linear-gradient(90deg,#77eaff,#a9a0ff);
+  box-shadow: 0 0 11px #43daff44;
+}
+
 .mini-actions {
   display: flex;
   justify-content: center;
@@ -1139,6 +1179,197 @@ footer strong {
 }
 
 
+
+
+
+/* =========================================================
+   FULL-SCREEN MINI GAME VIEW + CLEAR BACK CONTROL
+   Applies only to the existing Snake X / Bubble Blaster / Bubble Shooter overlay.
+   ========================================================= */
+.mini-modal.open {
+  position: fixed;
+  inset: 0;
+  padding: 0;
+  align-items: stretch;
+  justify-content: stretch;
+  background: #070710;
+  backdrop-filter: none;
+  z-index: 30000;
+}
+
+.mini-modal.open .mini-panel {
+  position: relative;
+  width: 100vw;
+  max-width: none;
+  height: 100vh;
+  height: 100dvh;
+  max-height: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: max(66px, calc(env(safe-area-inset-top) + 58px)) 14px max(18px, env(safe-area-inset-bottom));
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(91,54,145,.24), transparent 58%),
+    linear-gradient(180deg, #111122 0%, #080811 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.mini-modal.open .mini-close {
+  position: fixed;
+  z-index: 5;
+  top: max(10px, env(safe-area-inset-top));
+  left: 12px;
+  right: auto;
+  width: auto;
+  min-width: 145px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(164,91,255,.55);
+  background: rgba(29,22,48,.96);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .4px;
+}
+
+.mini-modal.open .mini-close:hover {
+  background: rgba(255,111,145,.2);
+  border-color: var(--red);
+}
+
+.mini-modal.open .mini-title {
+  margin: 0 auto 8px;
+  padding: 0 8px;
+  font-size: clamp(19px, 4vw, 25px);
+}
+
+.mini-modal.open .mini-instructions {
+  width: min(100%, 620px);
+  margin: 0 auto 12px;
+  font-size: 12px;
+}
+
+.mini-modal.open .mini-hud {
+  width: min(100%, 560px);
+  margin-bottom: 12px;
+}
+
+.mini-modal.open #miniCanvas {
+  width: min(100%, 520px, 58vh);
+  width: min(100%, 520px, 58dvh);
+  max-height: 62dvh;
+  height: auto;
+  flex: 0 0 auto;
+  margin: 0 auto;
+  border-radius: 14px;
+}
+
+.mini-modal.open .direction-pad {
+  margin-top: 10px;
+}
+
+.mini-modal.open .mini-actions {
+  margin-top: 12px;
+}
+
+.mini-modal.open .mini-message {
+  width: min(100%, 560px);
+  margin: 9px auto 0;
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+  .mini-modal.open .mini-panel {
+    padding-top: max(58px, calc(env(safe-area-inset-top) + 50px));
+  }
+  .mini-modal.open .mini-instructions {
+    margin-bottom: 6px;
+    font-size: 10px;
+  }
+  .mini-modal.open .mini-hud {
+    margin-bottom: 6px;
+  }
+  .mini-modal.open #miniCanvas {
+    width: min(48vw, 250px, 54dvh);
+    max-height: 54dvh;
+  }
+  .mini-modal.open .mini-actions {
+    margin-top: 7px;
+  }
+}
+
+/* Immersive game controls: request the browser's real fullscreen mode. */
+#miniGameModal:fullscreen,
+#spaceBlasterOverlay:fullscreen {
+  position: fixed !important;
+  inset: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+  background: #050714 !important;
+}
+#miniGameModal:fullscreen .mini-panel {
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: max(10px, env(safe-area-inset-top)) 12px max(16px, env(safe-area-inset-bottom)) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+#miniGameModal:fullscreen .game-orientation-btn,
+#spaceBlasterOverlay:fullscreen .game-orientation-btn {
+  right: max(10px, env(safe-area-inset-right));
+  bottom: max(10px, calc(env(safe-area-inset-bottom) + 6px));
+}
+
+.game-orientation-btn {
+  position: fixed;
+  z-index: 60010;
+  right: max(10px, env(safe-area-inset-right));
+  bottom: max(10px, calc(env(safe-area-inset-bottom) + 6px));
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  min-height: 36px;
+  padding: 0;
+  border: 1px solid rgba(132, 211, 255, .62);
+  border-radius: 11px;
+  background: rgba(12, 24, 49, .94);
+  color: #fff;
+  font: 800 17px/1 Arial, sans-serif;
+  letter-spacing: .45px;
+  box-shadow: 0 5px 18px rgba(0,0,0,.38);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  touch-action: manipulation;
+}
+.game-orientation-btn:active { transform: scale(.96); }
+.sb-orientation-btn {
+  z-index: 60020;
+  bottom: max(92px, calc(env(safe-area-inset-bottom) + 84px));
+}
 
 </style>
 </head>
@@ -1465,7 +1696,8 @@ footer strong {
 
 <div class="mini-modal" id="miniGameModal" aria-hidden="true">
   <div class="mini-panel" role="dialog" aria-modal="true" aria-labelledby="miniTitle">
-    <button class="mini-close" type="button" onclick="closeMiniGame()" aria-label="Close game">×</button>
+    <button class="mini-close" type="button" onclick="closeMiniGame()" aria-label="Back to website">← BACK TO WEBSITE</button>
+    <button class="game-orientation-btn" type="button" onclick="toggleGameOrientation(this)" aria-label="Switch screen orientation" title="Switch portrait or landscape">↻</button>
 
     <h2 class="mini-title" id="miniTitle">SNAKE X</h2>
     <p class="mini-instructions" id="miniInstructions">
@@ -1479,6 +1711,13 @@ footer strong {
     </div>
 
     <canvas id="miniCanvas" width="360" height="360" aria-label="Mini game playing area"></canvas>
+
+    <div class="bs-power-controls" id="bsPowerControls" hidden aria-label="Bubble Shooter shot power">
+      <span class="bs-power-title">SHOT POWER</span>
+      <button type="button" class="bs-power-btn" data-bs-power="6">LOW</button>
+      <button type="button" class="bs-power-btn active" data-bs-power="8">NORMAL</button>
+      <button type="button" class="bs-power-btn" data-bs-power="10.5">HIGH</button>
+    </div>
 
     <div class="direction-pad" id="directionPad">
       <button class="direction-up" type="button" data-direction="up" aria-label="Up">▲</button>
@@ -1502,6 +1741,7 @@ footer strong {
 <!-- SPACE BLASTER: original 2D pixel-art game -->
 <div id="spaceBlasterOverlay" aria-hidden="true">
   <canvas id="spaceBlasterCanvas" width="360" height="640" aria-label="Space Blaster 2D arcade game"></canvas>
+  <button class="game-orientation-btn sb-orientation-btn" id="sbOrientationBtn" type="button" onclick="toggleGameOrientation(this)" aria-label="Switch screen orientation" title="Switch portrait or landscape">↻</button>
   <div class="sb-hud" id="sbHud" hidden>
     <div class="sb-hud-left">
       <div class="sb-hud-chip">SCORE <b id="sbScore">0</b></div>
@@ -1613,6 +1853,18 @@ function getElement(id) {
   return document.getElementById(id);
 }
 
+// Convert finger/mouse position to the canvas's internal 360x420 coordinates.
+// This keeps taps accurate even when the canvas is scaled on mobile screens.
+function getCanvasPoint(event) {
+  const rect = miniCanvas.getBoundingClientRect();
+  const scaleX = miniCanvas.width / (rect.width || miniCanvas.width);
+  const scaleY = miniCanvas.height / (rect.height || miniCanvas.height);
+  return {
+    x: (event.clientX - rect.left) * scaleX,
+    y: (event.clientY - rect.top) * scaleY
+  };
+}
+
 /* =========================================================
    17. MOBILE MENU
    ========================================================= */
@@ -1646,10 +1898,10 @@ function closeMenu() {
   }
 
   window.addEventListener('load', function() {
-    setTimeout(hideLoader, 5000);
+    setTimeout(hideLoader, 2700);
   }, { once: true });
 
-  setTimeout(hideLoader, 5000);
+  setTimeout(hideLoader, 2700);
 })();
 
 /* =========================================================
@@ -1790,6 +2042,56 @@ let miniScore = 0;
 let miniBest = 0;
 let miniRunning = false;
 let miniEndTime = 0;
+let miniHistoryEntry = false;
+
+// Enter the browser's actual immersive fullscreen mode, not just a CSS-sized popup.
+window.ppEnterGameFullscreen = function(element) {
+  if (!element || document.fullscreenElement === element) return;
+  const request = element.requestFullscreen || element.webkitRequestFullscreen;
+  if (typeof request !== 'function') return;
+  try {
+    const result = request.call(element, { navigationUI: 'hide' });
+    if (result && typeof result.catch === 'function') result.catch(function() {
+      // Some mobile browsers do not expose the Fullscreen API to ordinary web pages.
+    });
+  } catch (error) {
+    // Keep the in-page game usable when fullscreen is not supported.
+  }
+};
+
+window.ppExitGameFullscreen = function(element) {
+  if (!element || document.fullscreenElement !== element) return;
+  const exit = document.exitFullscreen || document.webkitExitFullscreen;
+  if (typeof exit !== 'function') return;
+  try {
+    const result = exit.call(document);
+    if (result && typeof result.catch === 'function') result.catch(function() {});
+  } catch (error) {}
+};
+
+window.toggleGameOrientation = function(button) {
+  if (!button) return;
+  const orientation = screen.orientation;
+  if (!orientation || typeof orientation.lock !== 'function') {
+    button.title = 'Orientation lock is unavailable here. Enable Auto-rotate in Android quick settings.';
+    button.setAttribute('aria-label', button.title);
+    return;
+  }
+  const current = orientation.type || (window.innerWidth > window.innerHeight ? 'landscape-primary' : 'portrait-primary');
+  const next = current.indexOf('landscape') === 0 ? 'portrait' : 'landscape';
+  try {
+    Promise.resolve(orientation.lock(next)).then(function() {
+      button.title = 'Orientation set to ' + next + '. Tap to switch back.';
+      button.setAttribute('aria-label', button.title);
+    }).catch(function() {
+      button.title = 'Could not change orientation. Enable Auto-rotate in Android quick settings and try again.';
+      button.setAttribute('aria-label', button.title);
+    });
+  } catch (error) {
+    button.title = 'Could not change orientation. Enable Auto-rotate in Android quick settings and try again.';
+    button.setAttribute('aria-label', button.title);
+  }
+};
 
 function setMiniScore(value) {
   miniScore = value;
@@ -1833,6 +2135,8 @@ function openMiniGame(gameName) {
 
   stopMiniLoops();
   currentMiniGame = gameName;
+  const bubblePowerControls = getElement('bsPowerControls');
+  if (bubblePowerControls) bubblePowerControls.hidden = gameName !== 'bubble';
   setMiniScore(0);
 
   if (gameName === 'snake') {
@@ -1845,7 +2149,7 @@ function openMiniGame(gameName) {
     drawSnakeIntro();
   } else if (gameName === 'bubble') {
     miniTitle.textContent = 'BUBBLE SHOOTER';
-    miniInstructions.textContent = 'Aim with your finger and tap to shoot. Match 3 or more bubbles of the same colour.';
+    miniInstructions.textContent = 'Choose shot power, then drag upward from the launcher and release to shoot. Match 3 or more same-colour bubbles.';
     miniTimerWrap.style.display = 'none';
     directionPad.style.display = 'none';
     miniCanvas.width = 360;
@@ -1870,10 +2174,21 @@ function openMiniGame(gameName) {
   miniModal.classList.add('open');
   miniModal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('modal-open');
+  window.ppEnterGameFullscreen(miniModal);
+
+  // Make the phone/browser Back action return to the website before leaving it.
+  try {
+    history.pushState({ ppwMiniGame: true }, '', window.location.href);
+    miniHistoryEntry = true;
+  } catch (error) {
+    miniHistoryEntry = false;
+  }
 }
 
 function closeMiniGame() {
   stopMiniLoops();
+  try { if (screen.orientation && typeof screen.orientation.unlock === 'function') screen.orientation.unlock(); } catch (error) {}
+  window.ppExitGameFullscreen(miniModal);
 
   if (miniModal) {
     miniModal.classList.remove('open');
@@ -1882,6 +2197,15 @@ function closeMiniGame() {
 
   document.body.classList.remove('modal-open');
   currentMiniGame = '';
+
+  if (miniHistoryEntry) {
+    miniHistoryEntry = false;
+    try {
+      if (history.state && history.state.ppwMiniGame) history.back();
+    } catch (error) {
+      // The visible Back to Website button still closes the game if history is unavailable.
+    }
+  }
 }
 
 function readBestScore(gameName) {
@@ -1928,6 +2252,26 @@ if (miniModal) {
     }
   });
 }
+
+window.addEventListener('popstate', function() {
+  if (miniModal && miniModal.classList.contains('open')) {
+    miniHistoryEntry = false;
+    closeMiniGame();
+  }
+});
+
+// If Android/browser Back exits fullscreen first, close the game view too.
+document.addEventListener('fullscreenchange', function() {
+  if (document.fullscreenElement) return;
+  if (miniModal && miniModal.classList.contains('open')) {
+    closeMiniGame();
+    return;
+  }
+  const spaceOverlay = document.getElementById('spaceBlasterOverlay');
+  if (spaceOverlay && spaceOverlay.classList.contains('open') && typeof window.closeSpaceBlaster === 'function') {
+    window.closeSpaceBlaster();
+  }
+});
 
 /* =========================================================
    23. SNAKE X MINI GAME
@@ -2148,7 +2492,7 @@ const bbPalette = ['#42d9ff','#ff75bd','#ffd166','#8dff9b','#b69cff'];
 function bbSpawn() {
   const r = 13 + Math.random() * 17;
   bbBubbles.push({x:r+Math.random()*(miniCanvas.width-r*2), y:miniCanvas.height+r,
-    r, vy:0.8+Math.random()*1.5, vx:(Math.random()-.5)*1.1,
+    r, vy:1.6+Math.random()*2.1, vx:(Math.random()-.5)*1.35,
     color:bbPalette[Math.floor(Math.random()*bbPalette.length)]});
 }
 function drawBubbleBlasterIntro() {
@@ -2210,161 +2554,304 @@ if(miniCanvas){miniCanvas.addEventListener('pointerdown',function(event){
 const bsCols = 8;
 const bsRows = 8;
 const bsRadius = 16;
-const bsGapX = 43;
+const bsGapX = 42;
 const bsGapY = 34;
 const bsColors = ['#35c5ff','#a45bff','#ffcf5a','#ff6f91','#70e39a'];
 let bsBoard = [];
-let bsShooter = {x:180,y:386};
+let bsShooter = {x:180,y:382};
 let bsCurrent = '#35c5ff';
 let bsProjectile = null;
-let bsAim = {x:180,y:80};
+let bsAim = {x:180,y:70};
 let bsLastFrame = 0;
+let bsShotPower = 8;
+let bsDragging = false;
+let bsDragPointerId = null;
 
 function bsCenter(row,col) {
-  return {x:24 + col * bsGapX + (row % 2 ? bsGapX/2 : 0), y:28 + row * bsGapY};
+  return {x:25 + col * bsGapX + (row % 2 ? bsGapX / 2 : 0), y:28 + row * bsGapY};
 }
 
-function bsRandomColor() { return bsColors[Math.floor(Math.random()*bsColors.length)]; }
+function bsRandomColor() {
+  return bsColors[Math.floor(Math.random() * bsColors.length)];
+}
+
+function bsCreateBoard() {
+  // Create every row up front; empty lower rows must be real arrays too.
+  bsBoard = Array.from({length:bsRows}, () => Array(bsCols).fill(null));
+  for (let r=0; r<5; r++) {
+    for (let c=0; c<bsCols; c++) bsBoard[r][c] = bsRandomColor();
+  }
+  // Guarantee a useful first matching target.
+  const starterColor = bsRandomColor();
+  bsBoard[0][0] = starterColor;
+  bsBoard[0][1] = starterColor;
+  bsCurrent = starterColor;
+}
 
 function drawBubbleIntro() {
-  bsBoard = [];
-  for (let r=0;r<5;r++) {
-    bsBoard[r]=[];
-    for (let c=0;c<bsCols;c++) bsBoard[r][c]=bsRandomColor();
-  }
-  bsCurrent=bsRandomColor();
-  bsProjectile=null;
+  bsCreateBoard();
+  bsProjectile = null;
+  bsAim = {x:180,y:70};
   drawBubbleFrame();
-  miniContext.fillStyle='rgba(5,8,25,.78)';
-  miniContext.fillRect(25,165,310,75);
+  miniContext.fillStyle='rgba(5,8,25,.82)';
+  miniContext.fillRect(22,165,316,80);
   miniContext.fillStyle='#fff';
   miniContext.textAlign='center';
   miniContext.font='bold 19px Poppins, sans-serif';
   miniContext.fillText('BUBBLE SHOOTER',180,194);
   miniContext.font='12px Poppins, sans-serif';
   miniContext.fillStyle='#cbd5ff';
-  miniContext.fillText('Match 3 or more same-colour bubbles',180,218);
+  miniContext.fillText('Aim, shoot and match 3 or more!',180,218);
 }
 
 function drawBubbleFrame() {
-  if (!miniContext) return;
+  if (!miniContext || !miniCanvas) return;
   const ctx=miniContext;
   const w=miniCanvas.width,h=miniCanvas.height;
   const bg=ctx.createLinearGradient(0,0,0,h);
-  bg.addColorStop(0,'#101b42'); bg.addColorStop(1,'#080d20');
-  ctx.fillStyle=bg; ctx.fillRect(0,0,w,h);
-  // tiny stars
+  bg.addColorStop(0,'#101b42');
+  bg.addColorStop(1,'#080d20');
+  ctx.fillStyle=bg;
+  ctx.fillRect(0,0,w,h);
   for(let i=0;i<34;i++){
     ctx.fillStyle='rgba(255,255,255,.35)';
     ctx.fillRect((i*71)%w,(i*47)%h,2,2);
   }
   bsBoard.forEach((row,r)=>row.forEach((color,c)=>{
     if(!color)return;
-    const p=bsCenter(r,c); bsDrawOrb(ctx,p.x,p.y,bsRadius,color);
+    const p=bsCenter(r,c);
+    bsDrawOrb(ctx,p.x,p.y,bsRadius,color);
   }));
-  // aiming guide
   if(miniRunning && !bsProjectile){
     const dx=bsAim.x-bsShooter.x,dy=bsAim.y-bsShooter.y;
     const len=Math.hypot(dx,dy)||1;
-    ctx.setLineDash([5,7]);ctx.strokeStyle='rgba(255,255,255,.55)';ctx.lineWidth=2;
-    ctx.beginPath();ctx.moveTo(bsShooter.x,bsShooter.y);ctx.lineTo(bsShooter.x+dx/len*180,bsShooter.y+dy/len*180);ctx.stroke();ctx.setLineDash([]);
+    ctx.setLineDash([5,7]);
+    ctx.strokeStyle='rgba(255,255,255,.55)';
+    ctx.lineWidth=2;
+    ctx.beginPath();
+    ctx.moveTo(bsShooter.x,bsShooter.y);
+    ctx.lineTo(bsShooter.x+dx/len*180,bsShooter.y+dy/len*180);
+    ctx.stroke();
+    ctx.setLineDash([]);
   }
-  // shooter base
-  ctx.fillStyle='#29345f';ctx.beginPath();ctx.arc(180,394,25,Math.PI,0);ctx.fill();
+  ctx.fillStyle='#29345f';
+  ctx.beginPath();
+  ctx.arc(180,394,25,Math.PI,0);
+  ctx.fill();
   bsDrawOrb(ctx,bsShooter.x,bsShooter.y,bsRadius,bsCurrent);
   if(bsProjectile) bsDrawOrb(ctx,bsProjectile.x,bsProjectile.y,bsRadius,bsProjectile.color);
-  ctx.fillStyle='#dce5ff';ctx.font='11px Poppins,sans-serif';ctx.textAlign='center';
-  ctx.fillText('TAP ABOVE TO AIM & SHOOT',180,418);
+  ctx.fillStyle='#dce5ff';
+  ctx.font='11px Poppins,sans-serif';
+  ctx.textAlign='center';
+  ctx.fillText(bsDragging ? 'RELEASE TO SHOOT!' : 'DRAG UP FROM LAUNCHER',180,418);
 }
 
 function bsDrawOrb(ctx,x,y,r,color){
-  ctx.save();ctx.shadowColor=color;ctx.shadowBlur=12;
+  ctx.save();
+  ctx.shadowColor=color;
+  ctx.shadowBlur=12;
   const g=ctx.createRadialGradient(x-r*.35,y-r*.4,2,x,y,r);
-  g.addColorStop(0,'#ffffff');g.addColorStop(.22,color);g.addColorStop(1,'#20254a');
-  ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
-  ctx.shadowBlur=0;ctx.strokeStyle='rgba(255,255,255,.65)';ctx.lineWidth=1.5;ctx.stroke();ctx.restore();
+  g.addColorStop(0,'#ffffff');
+  g.addColorStop(.22,color);
+  g.addColorStop(1,'#20254a');
+  ctx.fillStyle=g;
+  ctx.beginPath();
+  ctx.arc(x,y,r,0,Math.PI*2);
+  ctx.fill();
+  ctx.shadowBlur=0;
+  ctx.strokeStyle='rgba(255,255,255,.65)';
+  ctx.lineWidth=1.5;
+  ctx.stroke();
+  ctx.restore();
 }
 
 function startBubbleGame(){
-  stopMiniLoops();currentMiniGame='bubble';bsBoard=[];
-  for(let r=0;r<5;r++){bsBoard[r]=[];for(let c=0;c<bsCols;c++)bsBoard[r][c]=bsRandomColor();}
-  bsCurrent=bsRandomColor();bsProjectile=null;bsAim={x:180,y:80};
-  setMiniScore(0);miniTimerElement.textContent='—';miniRunning=true;
-  miniStartButton.textContent='RESTART';setMiniMessage('Aim and shoot! Match 3 or more same-colour bubbles.');
-  drawBubbleFrame();miniAnimationFrame=requestAnimationFrame(updateBubbleGame);
+  stopMiniLoops();
+  currentMiniGame='bubble';
+  bsCreateBoard();
+  bsProjectile=null;
+  bsAim={x:180,y:70};
+  bsDragging=false;
+  bsDragPointerId=null;
+  setMiniScore(0);
+  miniTimerElement.textContent='—';
+  miniRunning=true;
+  miniStartButton.textContent='RESTART';
+  setMiniMessage('Touch near the launcher, drag towards your target, then release. Choose LOW, NORMAL or HIGH power.');
+  drawBubbleFrame();
+  miniAnimationFrame=requestAnimationFrame(updateBubbleGame);
 }
 
 function bsNeighbors(r,c){
-  const out=[[r-1,c],[r+1,c],[r,c-1],[r,c+1]];
-  if(r%2===0)out.push([r-1,c-1],[r+1,c-1]);
-  else out.push([r-1,c+1],[r+1,c+1]);
+  // Correct six-neighbour layout for staggered (hex-style) bubble rows.
+  const out=[[r,c-1],[r,c+1]];
+  if(r%2===0) out.push([r-1,c-1],[r-1,c],[r+1,c-1],[r+1,c]);
+  else out.push([r-1,c],[r-1,c+1],[r+1,c],[r+1,c+1]);
   return out.filter(([rr,cc])=>rr>=0&&rr<bsRows&&cc>=0&&cc<bsCols);
 }
 
 function bsFindMatches(row,col,color){
   const stack=[[row,col]],seen=new Set(),found=[];
-  while(stack.length){const [r,c]=stack.pop(),key=r+','+c;if(seen.has(key))continue;seen.add(key);
-    if(!bsBoard[r]||bsBoard[r][c]!==color)continue;found.push([r,c]);
+  while(stack.length){
+    const [r,c]=stack.pop();
+    const key=r+','+c;
+    if(seen.has(key))continue;
+    seen.add(key);
+    if(!bsBoard[r]||bsBoard[r][c]!==color)continue;
+    found.push([r,c]);
     bsNeighbors(r,c).forEach(([rr,cc])=>stack.push([rr,cc]));
   }
   return found;
 }
 
-function bsAttachBubble(){
-  let best=null,bestDist=Infinity;
-  for(let r=0;r<bsRows;r++)for(let c=0;c<bsCols;c++)if(!bsBoard[r][c]){
-    const p=bsCenter(r,c),d=Math.hypot(p.x-bsProjectile.x,p.y-bsProjectile.y);
-    if(d<bestDist){bestDist=d;best={r,c};}
+function bsAttachBubble(hitCell){
+  if(!bsProjectile)return;
+  let candidates=[];
+  if(hitCell){
+    candidates=bsNeighbors(hitCell.r,hitCell.c)
+      .filter(([r,c])=>!bsBoard[r][c])
+      .map(([r,c])=>({r,c}));
+  }else{
+    candidates=bsBoard[0].map((value,c)=>value===null?({r:0,c}):null).filter(Boolean);
   }
-  if(!best){endBubbleGame();return;}
-  bsBoard[best.r][best.c]=bsProjectile.color;
-  const matches=bsFindMatches(best.r,best.c,bsProjectile.color);
-  if(matches.length>=3){matches.forEach(([r,c])=>bsBoard[r][c]=null);setMiniScore(miniScore+matches.length*10);saveBestScore('bubble',miniScore);}
-  else if(best.r>=7){endBubbleGame();return;}
-  bsProjectile=null;bsCurrent=bsRandomColor();
-  if(bsBoard.every(row=>row.every(v=>!v))){setMiniMessage('BOARD CLEARED! Amazing shot!');endBubbleGame(true);}
+  // Fallback for a tightly packed area: choose the nearest available slot.
+  if(!candidates.length){
+    for(let r=0;r<bsRows;r++)for(let c=0;c<bsCols;c++){
+      if(!bsBoard[r][c])candidates.push({r,c});
+    }
+  }
+  if(!candidates.length){endBubbleGame(false);return;}
+  candidates.sort((a,b)=>{
+    const pa=bsCenter(a.r,a.c),pb=bsCenter(b.r,b.c);
+    return Math.hypot(pa.x-bsProjectile.x,pa.y-bsProjectile.y)-Math.hypot(pb.x-bsProjectile.x,pb.y-bsProjectile.y);
+  });
+  const spot=candidates[0];
+  bsBoard[spot.r][spot.c]=bsProjectile.color;
+  const matches=bsFindMatches(spot.r,spot.c,bsProjectile.color);
+  if(matches.length>=3){
+    matches.forEach(([r,c])=>{bsBoard[r][c]=null;});
+    setMiniScore(miniScore+matches.length*10);
+    saveBestScore('bubble',miniScore);
+    setMiniMessage('Nice pop! '+matches.length+' bubbles cleared. Keep going!');
+  }else{
+    setMiniMessage('No match yet. Aim for a group of the same colour.');
+  }
+  bsProjectile=null;
+  bsCurrent=bsRandomColor();
+  if(bsBoard.every(row=>row.every(value=>!value))){endBubbleGame(true);return;}
+  if(bsBoard[bsRows-1].some(Boolean)){endBubbleGame(false);}
 }
 
 function updateBubbleGame(){
   if(!miniRunning||currentMiniGame!=='bubble')return;
   if(bsProjectile){
-    bsProjectile.x+=bsProjectile.vx;bsProjectile.y+=bsProjectile.vy;
-    if(bsProjectile.x<bsRadius||bsProjectile.x>miniCanvas.width-bsRadius)bsProjectile.vx*=-1;
-    let hit=bsProjectile.y<bsRadius+8;
-    for(let r=0;r<bsRows&&!hit;r++)for(let c=0;c<bsCols;c++)if(bsBoard[r]&&bsBoard[r][c]){
-      const p=bsCenter(r,c);if(Math.hypot(p.x-bsProjectile.x,p.y-bsProjectile.y)<bsRadius*1.9){hit=true;break;}
+    // Sub-step faster shots so HIGH power cannot skip through bubbles.
+    const maxStep = 4;
+    const steps = Math.max(1, Math.ceil(Math.max(Math.abs(bsProjectile.vx), Math.abs(bsProjectile.vy)) / maxStep));
+    for(let step=0; step<steps && bsProjectile; step++){
+      bsProjectile.x += bsProjectile.vx / steps;
+      bsProjectile.y += bsProjectile.vy / steps;
+      if(bsProjectile.x < bsRadius){bsProjectile.x=bsRadius;bsProjectile.vx=Math.abs(bsProjectile.vx);}
+      if(bsProjectile.x > miniCanvas.width-bsRadius){bsProjectile.x=miniCanvas.width-bsRadius;bsProjectile.vx=-Math.abs(bsProjectile.vx);}
+      if(bsProjectile.y <= bsRadius+4){bsAttachBubble(null);break;}
+      let hitCell=null;
+      outer: for(let r=0;r<bsRows;r++)for(let c=0;c<bsCols;c++){
+        if(!bsBoard[r][c])continue;
+        const p=bsCenter(r,c);
+        if(Math.hypot(p.x-bsProjectile.x,p.y-bsProjectile.y)<=bsRadius*2-1){
+          hitCell={r,c};
+          break outer;
+        }
+      }
+      if(hitCell){bsAttachBubble(hitCell);break;}
     }
-    if(hit)bsAttachBubble();
   }
-  drawBubbleFrame();miniAnimationFrame=requestAnimationFrame(updateBubbleGame);
+  drawBubbleFrame();
+  if(miniRunning)miniAnimationFrame=requestAnimationFrame(updateBubbleGame);
 }
 
 function bsShootAt(point){
   if(!miniRunning||currentMiniGame!=='bubble'||bsProjectile)return;
-  const dx=point.x-bsShooter.x,dy=point.y-bsShooter.y;
-  if(dy> -12)return;
-  const len=Math.hypot(dx,dy)||1,speed=7;
+  const dx=point.x-bsShooter.x;
+  const dy=point.y-bsShooter.y;
+  if(dy>-10)return;
+  const len=Math.hypot(dx,dy)||1;
   bsAim={x:point.x,y:point.y};
-  bsProjectile={x:bsShooter.x,y:bsShooter.y,color:bsCurrent,vx:dx/len*speed,vy:dy/len*speed};
+  bsProjectile={x:bsShooter.x,y:bsShooter.y,color:bsCurrent,vx:dx/len*bsShotPower,vy:dy/len*bsShotPower};
+  setMiniMessage('Bubble released! Match 3 or more same-colour bubbles.');
 }
+
+// Power selector: the chosen value changes the actual bubble travel speed.
+const bsPowerButtons = document.querySelectorAll('[data-bs-power]');
+bsPowerButtons.forEach(function(button){
+  button.addEventListener('click',function(){
+    bsShotPower=Number(button.getAttribute('data-bs-power'))||8;
+    bsPowerButtons.forEach(function(other){other.classList.toggle('active',other===button);});
+    if(currentMiniGame==='bubble'){
+      const label=bsShotPower<7?'LOW':(bsShotPower>9?'HIGH':'NORMAL');
+      setMiniMessage('Shot power set to '+label+'. Touch the launcher, drag, then release.');
+    }
+  });
+});
 
 if(miniCanvas){
   miniCanvas.addEventListener('pointerdown',function(event){
-    if(!miniRunning||currentMiniGame!=='bubble')return;
-    const point=getCanvasPoint(event);bsAim=point;bsShootAt(point);
+    if(!miniRunning||currentMiniGame!=='bubble'||bsProjectile)return;
+    const point=getCanvasPoint(event);
+    // Begin the drag in the lower launcher area, then pull towards the target.
+    if(point.y < bsShooter.y-72){
+      setMiniMessage('Start your drag near the bubble launcher at the bottom.');
+      return;
+    }
+    event.preventDefault();
+    bsDragging=true;
+    bsDragPointerId=event.pointerId;
+    bsAim=point;
+    try{miniCanvas.setPointerCapture(event.pointerId);}catch(error){}
+    drawBubbleFrame();
   });
+
   miniCanvas.addEventListener('pointermove',function(event){
-    if(currentMiniGame==='bubble'&&!bsProjectile){const p=getCanvasPoint(event);if(p.y<bsShooter.y)bsAim=p;drawBubbleFrame();}
+    if(currentMiniGame!=='bubble'||!bsDragging||event.pointerId!==bsDragPointerId)return;
+    event.preventDefault();
+    const point=getCanvasPoint(event);
+    bsAim=point;
+    drawBubbleFrame();
   });
+
+  function releaseBubbleDrag(event){
+    if(currentMiniGame!=='bubble'||!bsDragging||event.pointerId!==bsDragPointerId)return;
+    event.preventDefault();
+    const point=getCanvasPoint(event);
+    bsDragging=false;
+    bsDragPointerId=null;
+    if(point.y < bsShooter.y-10){
+      bsShootAt(point);
+    }else{
+      setMiniMessage('Drag upward from the launcher, then release to shoot.');
+    }
+    drawBubbleFrame();
+    try{miniCanvas.releasePointerCapture(event.pointerId);}catch(error){}
+  }
+  miniCanvas.addEventListener('pointerup',releaseBubbleDrag);
+  miniCanvas.addEventListener('pointercancel',releaseBubbleDrag);
 }
 
 function endBubbleGame(cleared){
-  stopMiniLoops();saveBestScore('bubble',miniScore);miniStartButton.textContent='PLAY AGAIN';
+  stopMiniLoops();
+  saveBestScore('bubble',miniScore);
+  miniStartButton.textContent='PLAY AGAIN';
   setMiniMessage(cleared?'Board cleared! Final score: '+miniScore:'Game over! Final score: '+miniScore+'. Press PLAY AGAIN.');
-  drawBubbleFrame();miniContext.fillStyle='rgba(0,0,0,.68)';miniContext.fillRect(25,165,310,80);
-  miniContext.fillStyle='#ffcf5a';miniContext.font='bold 21px Poppins,sans-serif';miniContext.textAlign='center';
+  drawBubbleFrame();
+  miniContext.fillStyle='rgba(0,0,0,.72)';
+  miniContext.fillRect(25,165,310,80);
+  miniContext.fillStyle='#ffcf5a';
+  miniContext.font='bold 21px Poppins,sans-serif';
+  miniContext.textAlign='center';
   miniContext.fillText(cleared?'BOARD CLEARED!':'GAME OVER',180,197);
-  miniContext.fillStyle='#fff';miniContext.font='12px Poppins,sans-serif';miniContext.fillText('Score: '+miniScore,180,222);
+  miniContext.fillStyle='#fff';
+  miniContext.font='12px Poppins,sans-serif';
+  miniContext.fillText('Score: '+miniScore,180,222);
 }
 
 /* =========================================================
@@ -2506,10 +2993,12 @@ window.addEventListener('pagehide', function() {
   function openGame() {
     overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false');
     document.body.classList.add('modal-open');
+    if (window.ppEnterGameFullscreen) window.ppEnterGameFullscreen(overlay);
     resetMenu();
   }
   function closeGame() {
     state.running = false; state.paused = false; cancelAnimationFrame(state.raf); stopMusic();
+    if (window.ppExitGameFullscreen) window.ppExitGameFullscreen(overlay);
     overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true');
     document.body.classList.remove('modal-open');
     state.fireHeld = false; state.joyX = state.joyY = 0; pointerId = null;
@@ -2741,8 +3230,9 @@ window.addEventListener('pagehide', function() {
   joy.addEventListener('pointerup',releaseJoy);joy.addEventListener('pointercancel',releaseJoy);joy.addEventListener('lostpointercapture',()=>{pointerId=null;state.joyX=state.joyY=0;stick.style.transform='translate(0,0)';});
   window.addEventListener('keydown',e=>{if(!overlay.classList.contains('open'))return;if(e.code==='Escape'){if(state.running&&!state.paused)pauseGame();else if(state.paused)resumeGame();return;}if(e.code==='Space'){e.preventDefault();state.fireHeld=true;}if(e.code==='KeyQ')useLaser();if(e.code==='ArrowLeft'||e.code==='KeyA')state.joyX=-1;if(e.code==='ArrowRight'||e.code==='KeyD')state.joyX=1;if(e.code==='ArrowUp'||e.code==='KeyW')state.joyY=-1;if(e.code==='ArrowDown'||e.code==='KeyS')state.joyY=1;});
   window.addEventListener('keyup',e=>{if(e.code==='Space')state.fireHeld=false;if(['ArrowLeft','KeyA','ArrowRight','KeyD'].includes(e.code))state.joyX=0;if(['ArrowUp','KeyW','ArrowDown','KeyS'].includes(e.code))state.joyY=0;});
-  // Export one small entry point for the website's Play button.
+  // Export small entry points for the website's Play and Back controls.
   window.openSpaceBlaster = openGame;
+  window.closeSpaceBlaster = closeGame;
   window.addEventListener('pagehide',()=>{state.running=false;cancelAnimationFrame(state.raf);stopMusic();});
 })();
 </script>
