@@ -543,6 +543,10 @@ section {
     linear-gradient(135deg,#062b20,#08734f 55%,#25bd85);
 }
 
+.bubble-blaster-art {
+  background: radial-gradient(circle at 25% 20%,rgba(255,255,255,.22),transparent 25%), linear-gradient(135deg,#073c54,#087e9c 55%,#50d6cc);
+}
+
 .bubble-art {
   background:
     radial-gradient(circle at 20% 20%,rgba(255,255,255,.2),transparent 25%),
@@ -1340,22 +1344,38 @@ footer strong {
       </div>
     </article>
 
-    <!-- BUBBLE BURST -->
-
-    <article class="game-card reveal" data-category="mini" data-name="bubble burst bubbles">
-      <div class="game-art bubble-art">
+    <!-- BUBBLE BLASTER -->
+    <article class="game-card reveal" data-category="mini" data-name="bubble blaster bubble pop">
+      <div class="game-art bubble-blaster-art">
         <div class="art-emoji">🫧</div>
-        <div class="art-label">ARCADE MINI GAME</div>
+        <div class="art-label">ARCADE BUBBLE POP</div>
+      </div>
+      <div class="game-info">
+        <h3>BUBBLE BLASTER</h3>
+        <p>Pop the floating bubbles, build your score and beat the 30-second challenge!</p>
+        <span class="game-status">● PLAY IN WEBSITE</span>
+        <div class="game-buttons">
+          <button class="btn" type="button" onclick="openMiniGame('bubbleblaster')">PLAY BUBBLE BLASTER ▶</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- BUBBLE SHOOTER - SIXTH GAME -->
+
+    <article class="game-card reveal" data-category="mini" data-name="bubble shooter bubble puzzle match">
+      <div class="game-art bubble-art">
+        <div class="art-emoji">🎯</div>
+        <div class="art-label">AIM • SHOOT • MATCH</div>
       </div>
 
       <div class="game-info">
-        <h3>BUBBLE BURST</h3>
-        <p>Pop as many floating bubbles as you can before the 30-second timer ends.</p>
+        <h3>BUBBLE SHOOTER</h3>
+        <p>Aim, shoot and match 3 or more same-colour bubbles. Clear the board and beat your high score!</p>
 
         <span class="game-status">● PLAY IN WEBSITE</span>
 
         <div class="game-buttons">
-          <button class="btn" type="button" onclick="openMiniGame('bubble')">PLAY BUBBLE BURST ▶</button>
+          <button class="btn" type="button" onclick="openMiniGame('bubble')">PLAY BUBBLE SHOOTER ▶</button>
         </div>
       </div>
     </article>
@@ -1823,19 +1843,27 @@ function openMiniGame(gameName) {
     miniCanvas.width = 360;
     miniCanvas.height = 360;
     drawSnakeIntro();
-  } else {
-    miniTitle.textContent = 'BUBBLE BURST';
-    miniInstructions.textContent = 'Tap or click the bubbles to pop them. Score as much as possible in 30 seconds.';
-    miniTimerWrap.style.display = 'inline';
+  } else if (gameName === 'bubble') {
+    miniTitle.textContent = 'BUBBLE SHOOTER';
+    miniInstructions.textContent = 'Aim with your finger and tap to shoot. Match 3 or more bubbles of the same colour.';
+    miniTimerWrap.style.display = 'none';
     directionPad.style.display = 'none';
     miniCanvas.width = 360;
     miniCanvas.height = 420;
     drawBubbleIntro();
+  } else {
+    miniTitle.textContent = 'BUBBLE BLASTER';
+    miniInstructions.textContent = 'Tap the floating bubbles to pop them. Score as many points as possible in 30 seconds!';
+    miniTimerWrap.style.display = 'inline';
+    directionPad.style.display = 'none';
+    miniCanvas.width = 360;
+    miniCanvas.height = 420;
+    drawBubbleBlasterIntro();
   }
 
   miniBest = readBestScore(gameName);
   miniBestElement.textContent = String(miniBest);
-  miniTimerElement.textContent = gameName === 'bubble' ? '30' : '—';
+  miniTimerElement.textContent = '—';
   miniStartButton.textContent = 'START GAME';
   setMiniMessage('Press START GAME to play.');
 
@@ -1884,6 +1912,8 @@ function startCurrentMiniGame() {
     startSnakeGame();
   } else if (currentMiniGame === 'bubble') {
     startBubbleGame();
+  } else if (currentMiniGame === 'bubbleblaster') {
+    startBubbleBlasterGame();
   }
 }
 
@@ -2108,204 +2138,233 @@ if (directionPad) {
 }
 
 /* =========================================================
-   24. BUBBLE BURST MINI GAME
+   24. BUBBLE BLASTER MINI GAME
+   ========================================================= */
+let bbBubbles = [];
+let bbLastSpawn = 0;
+let bbLastFrame = 0;
+const bbPalette = ['#42d9ff','#ff75bd','#ffd166','#8dff9b','#b69cff'];
+
+function bbSpawn() {
+  const r = 13 + Math.random() * 17;
+  bbBubbles.push({x:r+Math.random()*(miniCanvas.width-r*2), y:miniCanvas.height+r,
+    r, vy:0.8+Math.random()*1.5, vx:(Math.random()-.5)*1.1,
+    color:bbPalette[Math.floor(Math.random()*bbPalette.length)]});
+}
+function drawBubbleBlasterIntro() {
+  bbBubbles=[]; for(let i=0;i<9;i++){bbSpawn();bbBubbles[i].y=45+Math.random()*310;}
+  drawBubbleBlasterFrame();
+  miniContext.fillStyle='rgba(5,8,25,.78)'; miniContext.fillRect(25,165,310,75);
+  miniContext.fillStyle='#fff'; miniContext.textAlign='center';
+  miniContext.font='bold 20px Poppins,sans-serif'; miniContext.fillText('BUBBLE BLASTER',180,195);
+  miniContext.font='12px Poppins,sans-serif'; miniContext.fillStyle='#cbd5ff';
+  miniContext.fillText('Tap bubbles to pop them!',180,218);
+}
+function drawBubbleBlasterFrame() {
+  const ctx=miniContext,w=miniCanvas.width,h=miniCanvas.height;
+  const g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,'#082d49');g.addColorStop(1,'#10152e');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  for(let i=0;i<28;i++){ctx.fillStyle='rgba(255,255,255,.35)';ctx.fillRect((i*67)%w,(i*43)%h,2,2);}
+  bbBubbles.forEach(b=>{ctx.save();ctx.shadowColor=b.color;ctx.shadowBlur=13;
+    const grad=ctx.createRadialGradient(b.x-b.r*.35,b.y-b.r*.4,2,b.x,b.y,b.r);
+    grad.addColorStop(0,'#fff');grad.addColorStop(.25,b.color);grad.addColorStop(1,'#17334d');
+    ctx.fillStyle=grad;ctx.beginPath();ctx.arc(b.x,b.y,b.r,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.7)';ctx.lineWidth=1.5;ctx.stroke();ctx.restore();});
+  ctx.fillStyle='#dce5ff';ctx.font='11px Poppins,sans-serif';ctx.textAlign='center';ctx.fillText('TAP A BUBBLE!',180,408);
+}
+function startBubbleBlasterGame(){
+  stopMiniLoops();currentMiniGame='bubbleblaster';bbBubbles=[];bbLastSpawn=0;bbLastFrame=0;
+  setMiniScore(0);miniEndTime=Date.now()+30000;miniTimerElement.textContent='30';miniRunning=true;
+  miniStartButton.textContent='RESTART';setMiniMessage('Pop as many bubbles as you can!');
+  for(let i=0;i<7;i++){bbSpawn();bbBubbles[i].y=50+Math.random()*300;}
+  miniGameInterval=setInterval(()=>{const left=Math.max(0,Math.ceil((miniEndTime-Date.now())/1000));miniTimerElement.textContent=String(left);
+    if(left<=0)endBubbleBlasterGame();},200);
+  miniAnimationFrame=requestAnimationFrame(updateBubbleBlasterGame);
+}
+function updateBubbleBlasterGame(now){
+  if(!miniRunning||currentMiniGame!=='bubbleblaster')return;
+  const dt=Math.min(2,(now-(bbLastFrame||now))/16.67);bbLastFrame=now;
+  bbBubbles.forEach(b=>{b.y-=b.vy*dt;b.x+=b.vx*dt;if(b.x<b.r||b.x>miniCanvas.width-b.r)b.vx*=-1;});
+  bbBubbles=bbBubbles.filter(b=>b.y+b.r>0);
+  if(now-bbLastSpawn>650){bbSpawn();bbLastSpawn=now;}
+  drawBubbleBlasterFrame();miniAnimationFrame=requestAnimationFrame(updateBubbleBlasterGame);
+}
+function endBubbleBlasterGame(){
+  stopMiniLoops();saveBestScore('bubbleblaster',miniScore);miniStartButton.textContent='PLAY AGAIN';
+  miniTimerElement.textContent='0';setMiniMessage('Time up! Final score: '+miniScore+'. Press PLAY AGAIN.');
+  drawBubbleBlasterFrame();miniContext.fillStyle='rgba(0,0,0,.72)';miniContext.fillRect(25,165,310,80);
+  miniContext.fillStyle='#ffd166';miniContext.font='bold 21px Poppins,sans-serif';miniContext.textAlign='center';miniContext.fillText('TIME UP!',180,197);
+  miniContext.fillStyle='#fff';miniContext.font='12px Poppins,sans-serif';miniContext.fillText('Score: '+miniScore,180,222);
+}
+if(miniCanvas){miniCanvas.addEventListener('pointerdown',function(event){
+  if(!miniRunning||currentMiniGame!=='bubbleblaster')return;
+  const p=getCanvasPoint(event);let hit=-1,best=Infinity;
+  bbBubbles.forEach((b,i)=>{const d=Math.hypot(p.x-b.x,p.y-b.y);if(d<=b.r+5&&d<best){best=d;hit=i;}});
+  if(hit>=0){bbBubbles.splice(hit,1);setMiniScore(miniScore+10);saveBestScore('bubbleblaster',miniScore);drawBubbleBlasterFrame();}
+});}
+
+/* =========================================================
+   24. BUBBLE SHOOTER MINI GAME
    ========================================================= */
 
-let bubbles = [];
-let bubbleLastSpawn = 0;
-let bubbleGameDuration = 30000;
-let bubbleEndTimestamp = 0;
+const bsCols = 8;
+const bsRows = 8;
+const bsRadius = 16;
+const bsGapX = 43;
+const bsGapY = 34;
+const bsColors = ['#35c5ff','#a45bff','#ffcf5a','#ff6f91','#70e39a'];
+let bsBoard = [];
+let bsShooter = {x:180,y:386};
+let bsCurrent = '#35c5ff';
+let bsProjectile = null;
+let bsAim = {x:180,y:80};
+let bsLastFrame = 0;
+
+function bsCenter(row,col) {
+  return {x:24 + col * bsGapX + (row % 2 ? bsGapX/2 : 0), y:28 + row * bsGapY};
+}
+
+function bsRandomColor() { return bsColors[Math.floor(Math.random()*bsColors.length)]; }
 
 function drawBubbleIntro() {
-  if (!miniContext) {
-    return;
+  bsBoard = [];
+  for (let r=0;r<5;r++) {
+    bsBoard[r]=[];
+    for (let c=0;c<bsCols;c++) bsBoard[r][c]=bsRandomColor();
   }
-
-  miniContext.fillStyle = '#0b1026';
-  miniContext.fillRect(0, 0, miniCanvas.width, miniCanvas.height);
-
-  drawBubbleDecoration();
-
-  miniContext.fillStyle = '#ffffff';
-  miniContext.font = 'bold 22px Poppins, sans-serif';
-  miniContext.textAlign = 'center';
-  miniContext.fillText('BUBBLE BURST', 180, 195);
-
-  miniContext.fillStyle = '#c4c6ef';
-  miniContext.font = '12px Poppins, sans-serif';
-  miniContext.fillText('Tap the bubbles to pop them', 180, 222);
-}
-
-function drawBubbleDecoration() {
-  const colors = [
-    'rgba(53,197,255,.55)',
-    'rgba(164,91,255,.55)',
-    'rgba(125,255,176,.5)',
-    'rgba(255,207,90,.5)'
-  ];
-
-  for (let i = 0; i < 8; i++) {
-    const x = 28 + (i * 43) % 310;
-    const y = 50 + (i * 61) % 320;
-    const radius = 9 + (i % 4) * 4;
-
-    miniContext.beginPath();
-    miniContext.fillStyle = colors[i % colors.length];
-    miniContext.arc(x, y, radius, 0, Math.PI * 2);
-    miniContext.fill();
-  }
-}
-
-function createBubble() {
-  const radius = 12 + Math.random() * 18;
-  const colors = ['#35c5ff','#a45bff','#7dffb0','#ffcf5a','#ff7ca8'];
-
-  return {
-    x: radius + Math.random() * (miniCanvas.width - radius * 2),
-    y: miniCanvas.height + radius,
-    radius: radius,
-    speed: 0.7 + Math.random() * 1.5,
-    color: colors[Math.floor(Math.random() * colors.length)],
-    wobble: Math.random() * Math.PI * 2,
-    wobbleSpeed: 0.02 + Math.random() * 0.025
-  };
-}
-
-function startBubbleGame() {
-  stopMiniLoops();
-  currentMiniGame = 'bubble';
-  bubbles = [];
-  bubbleLastSpawn = 0;
-  setMiniScore(0);
-  miniTimerElement.textContent = '30';
-  bubbleEndTimestamp = Date.now() + bubbleGameDuration;
-  miniRunning = true;
-  miniStartButton.textContent = 'RESTART';
-  setMiniMessage('Quick! Tap or click the bubbles!');
+  bsCurrent=bsRandomColor();
+  bsProjectile=null;
   drawBubbleFrame();
-  miniAnimationFrame = requestAnimationFrame(updateBubbleGame);
+  miniContext.fillStyle='rgba(5,8,25,.78)';
+  miniContext.fillRect(25,165,310,75);
+  miniContext.fillStyle='#fff';
+  miniContext.textAlign='center';
+  miniContext.font='bold 19px Poppins, sans-serif';
+  miniContext.fillText('BUBBLE SHOOTER',180,194);
+  miniContext.font='12px Poppins, sans-serif';
+  miniContext.fillStyle='#cbd5ff';
+  miniContext.fillText('Match 3 or more same-colour bubbles',180,218);
 }
 
 function drawBubbleFrame() {
-  if (!miniContext) {
-    return;
+  if (!miniContext) return;
+  const ctx=miniContext;
+  const w=miniCanvas.width,h=miniCanvas.height;
+  const bg=ctx.createLinearGradient(0,0,0,h);
+  bg.addColorStop(0,'#101b42'); bg.addColorStop(1,'#080d20');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,w,h);
+  // tiny stars
+  for(let i=0;i<34;i++){
+    ctx.fillStyle='rgba(255,255,255,.35)';
+    ctx.fillRect((i*71)%w,(i*47)%h,2,2);
   }
-
-  miniContext.fillStyle = '#0b1026';
-  miniContext.fillRect(0, 0, miniCanvas.width, miniCanvas.height);
-
-  bubbles.forEach(function(bubble) {
-    miniContext.beginPath();
-    miniContext.fillStyle = bubble.color;
-    miniContext.globalAlpha = .72;
-    miniContext.arc(bubble.x, bubble.y, bubble.radius, 0, Math.PI * 2);
-    miniContext.fill();
-
-    miniContext.globalAlpha = .65;
-    miniContext.beginPath();
-    miniContext.fillStyle = '#ffffff';
-    miniContext.arc(
-      bubble.x - bubble.radius * .28,
-      bubble.y - bubble.radius * .3,
-      Math.max(2,bubble.radius * .18),
-      0,
-      Math.PI * 2
-    );
-    miniContext.fill();
-    miniContext.globalAlpha = 1;
-  });
+  bsBoard.forEach((row,r)=>row.forEach((color,c)=>{
+    if(!color)return;
+    const p=bsCenter(r,c); bsDrawOrb(ctx,p.x,p.y,bsRadius,color);
+  }));
+  // aiming guide
+  if(miniRunning && !bsProjectile){
+    const dx=bsAim.x-bsShooter.x,dy=bsAim.y-bsShooter.y;
+    const len=Math.hypot(dx,dy)||1;
+    ctx.setLineDash([5,7]);ctx.strokeStyle='rgba(255,255,255,.55)';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(bsShooter.x,bsShooter.y);ctx.lineTo(bsShooter.x+dx/len*180,bsShooter.y+dy/len*180);ctx.stroke();ctx.setLineDash([]);
+  }
+  // shooter base
+  ctx.fillStyle='#29345f';ctx.beginPath();ctx.arc(180,394,25,Math.PI,0);ctx.fill();
+  bsDrawOrb(ctx,bsShooter.x,bsShooter.y,bsRadius,bsCurrent);
+  if(bsProjectile) bsDrawOrb(ctx,bsProjectile.x,bsProjectile.y,bsRadius,bsProjectile.color);
+  ctx.fillStyle='#dce5ff';ctx.font='11px Poppins,sans-serif';ctx.textAlign='center';
+  ctx.fillText('TAP ABOVE TO AIM & SHOOT',180,418);
 }
 
-function updateBubbleGame(timestamp) {
-  if (!miniRunning || currentMiniGame !== 'bubble') {
-    return;
-  }
-
-  const remaining = Math.max(0, bubbleEndTimestamp - Date.now());
-  miniTimerElement.textContent = String(Math.ceil(remaining / 1000));
-
-  if (remaining <= 0) {
-    endBubbleGame();
-    return;
-  }
-
-  if (!bubbleLastSpawn || timestamp - bubbleLastSpawn > 480) {
-    bubbles.push(createBubble());
-    bubbleLastSpawn = timestamp;
-  }
-
-  bubbles.forEach(function(bubble) {
-    bubble.y -= bubble.speed;
-    bubble.wobble += bubble.wobbleSpeed;
-    bubble.x += Math.sin(bubble.wobble) * .45;
-  });
-
-  bubbles = bubbles.filter(function(bubble) {
-    return bubble.y + bubble.radius > -10;
-  });
-
-  drawBubbleFrame();
-  miniAnimationFrame = requestAnimationFrame(updateBubbleGame);
+function bsDrawOrb(ctx,x,y,r,color){
+  ctx.save();ctx.shadowColor=color;ctx.shadowBlur=12;
+  const g=ctx.createRadialGradient(x-r*.35,y-r*.4,2,x,y,r);
+  g.addColorStop(0,'#ffffff');g.addColorStop(.22,color);g.addColorStop(1,'#20254a');
+  ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
+  ctx.shadowBlur=0;ctx.strokeStyle='rgba(255,255,255,.65)';ctx.lineWidth=1.5;ctx.stroke();ctx.restore();
 }
 
-function getCanvasPoint(event) {
-  const rect = miniCanvas.getBoundingClientRect();
-  const scaleX = miniCanvas.width / rect.width;
-  const scaleY = miniCanvas.height / rect.height;
-
-  return {
-    x: (event.clientX - rect.left) * scaleX,
-    y: (event.clientY - rect.top) * scaleY
-  };
+function startBubbleGame(){
+  stopMiniLoops();currentMiniGame='bubble';bsBoard=[];
+  for(let r=0;r<5;r++){bsBoard[r]=[];for(let c=0;c<bsCols;c++)bsBoard[r][c]=bsRandomColor();}
+  bsCurrent=bsRandomColor();bsProjectile=null;bsAim={x:180,y:80};
+  setMiniScore(0);miniTimerElement.textContent='—';miniRunning=true;
+  miniStartButton.textContent='RESTART';setMiniMessage('Aim and shoot! Match 3 or more same-colour bubbles.');
+  drawBubbleFrame();miniAnimationFrame=requestAnimationFrame(updateBubbleGame);
 }
 
-if (miniCanvas) {
-  miniCanvas.addEventListener('pointerdown', function(event) {
-    if (!miniRunning || currentMiniGame !== 'bubble') {
-      return;
+function bsNeighbors(r,c){
+  const out=[[r-1,c],[r+1,c],[r,c-1],[r,c+1]];
+  if(r%2===0)out.push([r-1,c-1],[r+1,c-1]);
+  else out.push([r-1,c+1],[r+1,c+1]);
+  return out.filter(([rr,cc])=>rr>=0&&rr<bsRows&&cc>=0&&cc<bsCols);
+}
+
+function bsFindMatches(row,col,color){
+  const stack=[[row,col]],seen=new Set(),found=[];
+  while(stack.length){const [r,c]=stack.pop(),key=r+','+c;if(seen.has(key))continue;seen.add(key);
+    if(!bsBoard[r]||bsBoard[r][c]!==color)continue;found.push([r,c]);
+    bsNeighbors(r,c).forEach(([rr,cc])=>stack.push([rr,cc]));
+  }
+  return found;
+}
+
+function bsAttachBubble(){
+  let best=null,bestDist=Infinity;
+  for(let r=0;r<bsRows;r++)for(let c=0;c<bsCols;c++)if(!bsBoard[r][c]){
+    const p=bsCenter(r,c),d=Math.hypot(p.x-bsProjectile.x,p.y-bsProjectile.y);
+    if(d<bestDist){bestDist=d;best={r,c};}
+  }
+  if(!best){endBubbleGame();return;}
+  bsBoard[best.r][best.c]=bsProjectile.color;
+  const matches=bsFindMatches(best.r,best.c,bsProjectile.color);
+  if(matches.length>=3){matches.forEach(([r,c])=>bsBoard[r][c]=null);setMiniScore(miniScore+matches.length*10);saveBestScore('bubble',miniScore);}
+  else if(best.r>=7){endBubbleGame();return;}
+  bsProjectile=null;bsCurrent=bsRandomColor();
+  if(bsBoard.every(row=>row.every(v=>!v))){setMiniMessage('BOARD CLEARED! Amazing shot!');endBubbleGame(true);}
+}
+
+function updateBubbleGame(){
+  if(!miniRunning||currentMiniGame!=='bubble')return;
+  if(bsProjectile){
+    bsProjectile.x+=bsProjectile.vx;bsProjectile.y+=bsProjectile.vy;
+    if(bsProjectile.x<bsRadius||bsProjectile.x>miniCanvas.width-bsRadius)bsProjectile.vx*=-1;
+    let hit=bsProjectile.y<bsRadius+8;
+    for(let r=0;r<bsRows&&!hit;r++)for(let c=0;c<bsCols;c++)if(bsBoard[r]&&bsBoard[r][c]){
+      const p=bsCenter(r,c);if(Math.hypot(p.x-bsProjectile.x,p.y-bsProjectile.y)<bsRadius*1.9){hit=true;break;}
     }
+    if(hit)bsAttachBubble();
+  }
+  drawBubbleFrame();miniAnimationFrame=requestAnimationFrame(updateBubbleGame);
+}
 
-    const point = getCanvasPoint(event);
-    let popped = false;
+function bsShootAt(point){
+  if(!miniRunning||currentMiniGame!=='bubble'||bsProjectile)return;
+  const dx=point.x-bsShooter.x,dy=point.y-bsShooter.y;
+  if(dy> -12)return;
+  const len=Math.hypot(dx,dy)||1,speed=7;
+  bsAim={x:point.x,y:point.y};
+  bsProjectile={x:bsShooter.x,y:bsShooter.y,color:bsCurrent,vx:dx/len*speed,vy:dy/len*speed};
+}
 
-    for (let i = bubbles.length - 1; i >= 0; i--) {
-      const bubble = bubbles[i];
-      const dx = point.x - bubble.x;
-      const dy = point.y - bubble.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      if (distance <= bubble.radius + 5) {
-        bubbles.splice(i, 1);
-        setMiniScore(miniScore + 10);
-        saveBestScore('bubble', miniScore);
-        popped = true;
-        break;
-      }
-    }
-
-    if (popped) {
-      drawBubbleFrame();
-    }
+if(miniCanvas){
+  miniCanvas.addEventListener('pointerdown',function(event){
+    if(!miniRunning||currentMiniGame!=='bubble')return;
+    const point=getCanvasPoint(event);bsAim=point;bsShootAt(point);
+  });
+  miniCanvas.addEventListener('pointermove',function(event){
+    if(currentMiniGame==='bubble'&&!bsProjectile){const p=getCanvasPoint(event);if(p.y<bsShooter.y)bsAim=p;drawBubbleFrame();}
   });
 }
 
-function endBubbleGame() {
-  stopMiniLoops();
-  saveBestScore('bubble', miniScore);
-  miniTimerElement.textContent = '0';
-  miniStartButton.textContent = 'PLAY AGAIN';
-  setMiniMessage('Time is up! Your score: ' + miniScore + '. Press PLAY AGAIN.');
-
-  drawBubbleFrame();
-  miniContext.fillStyle = 'rgba(0,0,0,.62)';
-  miniContext.fillRect(0, 155, 360, 105);
-  miniContext.fillStyle = '#ffcf5a';
-  miniContext.font = 'bold 21px Poppins, sans-serif';
-  miniContext.textAlign = 'center';
-  miniContext.fillText('TIME UP!', 180, 198);
-  miniContext.fillStyle = '#ffffff';
-  miniContext.font = '12px Poppins, sans-serif';
-  miniContext.fillText('Score: ' + miniScore, 180, 222);
+function endBubbleGame(cleared){
+  stopMiniLoops();saveBestScore('bubble',miniScore);miniStartButton.textContent='PLAY AGAIN';
+  setMiniMessage(cleared?'Board cleared! Final score: '+miniScore:'Game over! Final score: '+miniScore+'. Press PLAY AGAIN.');
+  drawBubbleFrame();miniContext.fillStyle='rgba(0,0,0,.68)';miniContext.fillRect(25,165,310,80);
+  miniContext.fillStyle='#ffcf5a';miniContext.font='bold 21px Poppins,sans-serif';miniContext.textAlign='center';
+  miniContext.fillText(cleared?'BOARD CLEARED!':'GAME OVER',180,197);
+  miniContext.fillStyle='#fff';miniContext.font='12px Poppins,sans-serif';miniContext.fillText('Score: '+miniScore,180,222);
 }
 
 /* =========================================================
