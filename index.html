@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#B5CBE0">
 <meta name="description" content="PRATEEK PIXELWORKS - Turning Imagination into Games.">
 <title>PRATEEK PIXELWORKS | Game Studio</title>
-<!-- Name-only player registration with sequential 18-digit PID -->
+<!-- PRATEEK PIXELWORKS website -->
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23B5CBE0'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle' fill='%23286FAE' font-family='Arial' font-weight='bold'%3EPP%3C/text%3E%3C/svg%3E">
 
@@ -1371,10 +1371,9 @@ text-align: center;
 }
 
 
-/* GAME LIBRARY 2.0 + PLAYER HUB */
+/* GAME LIBRARY 2.0 */
 .game-library-heading{max-width:1150px;margin:0 auto 18px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .game-library-pill{border:1px solid rgba(164,91,255,.35);background:rgba(164,91,255,.1);padding:8px 13px;border-radius:999px;color:#d9c3ff;font-size:12px;font-weight:700;letter-spacing:1px}
-.player-hub{background:linear-gradient(180deg,#0b0b17,#101020);border-top:1px solid rgba(164,91,255,.13);border-bottom:1px solid rgba(164,91,255,.13)}
 .hub-grid{max-width:1050px;margin:28px auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
 .hub-card{background:linear-gradient(145deg,#17172a,#0d0d18);border:1px solid rgba(164,91,255,.25);border-radius:18px;padding:24px;min-width:0}
 .hub-card h3{font-family:Orbitron,sans-serif;font-size:17px;margin-bottom:8px;color:#fff}
@@ -1415,7 +1414,7 @@ header, section, footer, .navbar, .hero-content, .games-grid,
 }
 section { width: 100%; }
 .navbar { width: 100%; }
-.games-section, .player-hub { overflow: clip; }
+.games-section { overflow: clip; }
 .game-top, .game-search-wrap, .game-filters, .game-card, .game-info,
 .hub-card, .upcoming-card { min-width: 0; }
 .game-info h3, .game-info p, .hub-card p, .leader-item,
@@ -1439,45 +1438,6 @@ img, iframe, video, canvas, svg { max-width: 100%; }
   .filter-btn { flex: 1 1 auto; }
 }
 
-/* PLAYER HUB: social sign-in, generated PID, nickname and global ranking */
-.auth-provider-list { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 16px 0; }
-.auth-provider-btn {
-  display: flex; align-items: center; justify-content: center; gap: 11px;
-  width: 100%; min-height: 46px; padding: 11px 14px;
-  border: 1px solid rgba(164,91,255,.32); border-radius: 11px;
-  background: #0b0b18; color: #fff; font-size: 12px; font-weight: 700;
-  transition: border-color .2s, transform .2s, background .2s;
-}
-.auth-provider-btn:hover { transform: translateY(-2px); border-color: var(--blue); background: #15152b; }
-.auth-provider-btn:disabled { opacity: .55; cursor: wait; transform: none; }
-.provider-mark { display: inline-grid; place-items: center; width: 23px; height: 23px; border-radius: 7px; background: #fff; color: #202124; font: 900 15px Arial,sans-serif; }
-.provider-facebook .provider-mark { background: #1877f2; color: #fff; }
-.provider-x .provider-mark { background: #fff; color: #000; }
-.auth-status { margin: 10px 0 14px !important; padding: 10px 12px; border: 1px solid rgba(53,197,255,.22); border-radius: 10px; background: rgba(53,197,255,.06); color: #bdefff !important; font-size: 11px !important; overflow-wrap: anywhere; }
-.profile-fields { padding-top: 14px; border-top: 1px solid rgba(164,91,255,.18); }
-.profile-label { display: block; margin: 0 0 7px; color: #c9c5d9; font-size: 11px; font-weight: 700; }
-.profile-row input:disabled { opacity: .6; }
-.profile-uid-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 13px; }
-.profile-uid-row code { flex: 1 1 150px; min-width: 0; padding: 9px 10px; color: #bdefff; background: #090916; border: 1px solid rgba(53,197,255,.2); border-radius: 8px; font-size: 10px; overflow-wrap: anywhere; }
-.copy-uid-btn, .signout-btn { padding: 9px 11px; border: 1px solid rgba(164,91,255,.4); border-radius: 8px; background: #17172a; color: #e8defe; font-size: 10px; font-weight: 700; }
-.signout-row { display: flex; justify-content: flex-end; margin-top: 12px; }
-#profileMessage { overflow-wrap: anywhere; }
-.global-board-top { display: flex; align-items: center; justify-content: space-between; gap: 9px; flex-wrap: wrap; margin-bottom: 13px; }
-.global-board-top label { color: #c9c5d9; font-size: 11px; font-weight: 700; }
-#globalGameSelect { max-width: 100%; padding: 9px 11px; color: #fff; background: #090916; border: 1px solid rgba(164,91,255,.35); border-radius: 9px; font: inherit; font-size: 11px; }
-.leader-item .leader-player { display: flex; flex-direction: column; min-width: 0; gap: 2px; }
-.leader-item small { color: #85839a; font-size: 9px; overflow-wrap: anywhere; }
-.global-empty { padding: 14px; color: var(--muted); border: 1px dashed rgba(164,91,255,.28); border-radius: 10px; font-size: 11px; text-align: center; line-height: 1.7; }
-@media (min-width: 701px) { .auth-provider-list { grid-template-columns: 1fr; } }
-@media (max-width: 420px) {
-  .profile-uid-row { align-items: stretch; }
-  .copy-uid-btn { flex: 1 1 auto; }
-  .global-board-top { align-items: stretch; flex-direction: column; }
-  #globalGameSelect { width: 100%; }
-}
-
-
-.metro-art{background:linear-gradient(130deg,#111c3c,#6036a8 55%,#1ca9c6)}
 /* Metro Rush immersive 3D view */
 #gameScreen.metro-open{padding:0;overflow:hidden;background:#050711;touch-action:none}
 #gameScreen.metro-open .game-top,#gameScreen.metro-open .game-stage{display:none!important}
@@ -1496,14 +1456,6 @@ img, iframe, video, canvas, svg { max-width: 100%; }
 .metro-toast{position:absolute;z-index:9;left:50%;top:25%;transform:translate(-50%,-10px);opacity:0;transition:.25s;background:#10162c;border:1px solid #ffd66f;color:#fff;padding:10px 15px;border-radius:12px;font:700 10px Orbitron;white-space:nowrap;pointer-events:none}.metro-toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:600px){.metro-topbar{padding-left:10px;padding-right:10px}.metro-brand{font-size:9px;letter-spacing:.7px}.metro-chip{font-size:8px;padding:8px 9px}.metro-hud{top:58px;left:8px;right:8px}.metro-stat{min-width:60px;padding:7px 8px}.metro-stat strong{font-size:13px}.metro-stat small{font-size:7px}.metro-task-mini{max-width:130px;font-size:8px;padding:7px}.metro-mode-row{grid-template-columns:repeat(2,1fr)}.metro-missions{grid-template-columns:1fr}.metro-panel{max-height:88%;padding:18px}.metro-copy{font-size:10px}.metro-bottom-hint{font-size:8px;bottom:calc(8px + env(safe-area-inset-bottom))}}
 @media(orientation:landscape) and (max-height:520px){.metro-panel{max-height:92%;padding:12px 18px}.metro-missions{grid-template-columns:repeat(3,1fr);margin:8px 0}.metro-copy{margin:7px auto}.metro-mode-row{margin:7px 0}.metro-title{font-size:29px}.metro-start-btn{margin:8px auto;padding:10px}}
-
-.metro-rush-art { background:linear-gradient(130deg,#101a37,#5936a0 55%,#16a5c5); }
-.metro-card-tracks { position:absolute; inset:0; display:flex; justify-content:center; gap:26px; opacity:.65; transform:perspective(180px) rotateX(18deg); }
-.metro-card-tracks span { width:3px; height:120%; background:linear-gradient(180deg,transparent,#b5f5ff,transparent); box-shadow:0 0 12px #35cfff; }
-#metroGame { position:fixed !important; inset:0; z-index:70000; }
-#metroGame.active { display:block; }
-
-
 
 </style>
 </head>
@@ -1767,6 +1719,9 @@ img, iframe, video, canvas, svg { max-width: 100%; }
   <div class="no-games" id="noGames">No games found. Try another name or category.</div>
 </section>
 
+<!-- =======================================================
+     UPCOMING GAMES
+     ======================================================= -->
 
 <section id="upcoming" class="reveal">
   <h2 class="section-title">UPCOMING <span class="gradient">GAMES</span></h2>
@@ -2030,7 +1985,7 @@ section { color: #17344F; }
 .section-subtitle, .hero p { color: #5D7288; }
 .about-box { color: #526B82; }
 .about-highlight { color: #1D5E94; }
-.games-section, .player-hub { background: linear-gradient(180deg,#C4D7E9,#B5CBE0); border-color: #B0C7DD; }
+.games-section { background: linear-gradient(180deg,#C4D7E9,#B5CBE0); border-color: #B0C7DD; }
 .game-card, .hub-card, .upcoming-card, .contact-box, .about-box { background: #F5F9FD; border-color: #C4D7E8; box-shadow: 0 12px 30px rgba(34,75,111,.08); }
 .game-card:hover, .hub-card:hover, .upcoming-card:hover { border-color: #DAB43B; box-shadow: 0 15px 35px rgba(36,104,160,.13); }
 .game-info h3, .hub-card h3, .upcoming-card h3 { color: #183B59; }
@@ -2042,18 +1997,12 @@ section { color: #17344F; }
 .filter-btn { color: #34556F; background: #ECF3F9; border-color: #B8CCDE; }
 .filter-btn.active, .filter-btn:hover { color: #17344F; background: #F5D36F; border-color: #D6AE34; }
 .game-status { color: #246B49; background: rgba(48,145,93,.10); border-color: rgba(48,145,93,.28); }
-.profile-label, .global-board-top label { color: #3B5B77; }
-.pid-line { color: #216DA9; }
-.player-status { background: #EAF2F9; border-color: #C6D9E9; }
-.player-status strong { color: #183B59; }
-.player-status small, .player-note, .leader-note { color: #647A90 !important; }
-.auth-provider-btn, .copy-uid-btn, .signout-btn { color: #244968; background: #EAF2F9; border-color: #BBD0E2; }
+.global-board-top label { color: #3B5B77; }
+.leader-note { color: #647A90 !important; }
 .auth-provider-btn:hover, .copy-uid-btn:hover, .signout-btn:hover { background: #F5D36D; }
-.auth-status { color: #315F83 !important; background: #EAF4FB; border-color: #C0D8EA; }
 .leader-item b { color: #245F91; }
 .hub-stat { color: #244968; background: #EAF2F9; border-color: #C4D7E8; }
-
-
+.leader-item small { color: #71869A; }
 footer { color: #4E6880; background: #B9CDE0; border-top: 1px solid #B9CDDF; }
 footer strong { color: #1C5F94; }
 .no-games { color: #5D7288; }
@@ -2914,7 +2863,8 @@ function startBubbleGame(){
 }
 
 function bsNeighbors(r,c){
-  // Correct six-neighbour layout for staggered (hex-style) bubble rows.const out=[[r,c-1],[r,c+1]];
+  // Correct six-neighbour layout for staggered (hex-style) bubble rows.
+  const out=[[r,c-1],[r,c+1]];
   if(r%2===0) out.push([r-1,c-1],[r-1,c],[r+1,c-1],[r+1,c]);
   else out.push([r-1,c],[r-1,c+1],[r+1,c],[r+1,c+1]);
   return out.filter(([rr,cc])=>rr>=0&&rr<bsRows&&cc>=0&&cc<bsCols);
@@ -3474,11 +3424,7 @@ window.addEventListener('pagehide', function() {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-window.activePlayer = window.activePlayer || null;
 window.metroIsOpen = false;
-function metroEscapeHtml(value) {
-  return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-}
 const metroOverlay = document.getElementById('metroGame');
 var metroGame = metroOverlay;
 function openMetroRush() {
@@ -3529,10 +3475,10 @@ let metroRenderer=null,metroScene=null,metroCamera=null,metroClock=null,metroPla
 let metroSegments=[],metroBuildings=[],metroObstacles=[],metroTokens=[],metroDistance=0,metroRunCoins=0,metroTotalCoins=0,metroBestDistance=0,metroSpeed=18,metroSpawnTimer=0,metroTokenTimer=0,metroJump=0,metroSlide=0,metroLane=1,metroLaneX=0,metroRunTime=0,metroJumps=0,metroSlides=0,metroLastHud=0,metroLastSave=0;
 const metroLaneXValues=[-2.45,0,2.45];
 let metroTasks={day:'',distance:0,coins:0,jumps:0,done:{}};
-function metroPlayerKey(){return window.activePlayer?'ppMetroBest_'+window.activePlayer.pid:'ppMetroBest_guest'}
-function metroCoinsKey(){return window.activePlayer?'ppMetroBank_'+window.activePlayer.pid:'ppMetroBank_guest'}
+function metroPlayerKey(){return 'ppMetroBest_guest'}
+function metroCoinsKey(){return 'ppMetroBank_guest'}
 function updateMetroProfileStats(){try{metroBestDistance=+(localStorage.getItem(metroPlayerKey())||0);metroTotalCoins=+(localStorage.getItem(metroCoinsKey())||0)}catch(e){metroBestDistance=0;metroTotalCoins=0}const b=document.getElementById('metroBest');if(b)b.textContent=Math.floor(metroBestDistance)+' m'}
-function metroTasksKey(){return 'ppMetroDailyTasks_'+(window.activePlayer?window.activePlayer.pid:'guest')}
+function metroTasksKey(){return 'ppMetroDailyTasks_guest'}
 function loadMetroTasks(){const day=new Date().toISOString().slice(0,10);try{metroTasks=JSON.parse(localStorage.getItem(metroTasksKey())||'{}')}catch(e){metroTasks={}}if(metroTasks.day!==day)metroTasks={day,distance:0,coins:0,jumps:0,done:{}};metroTasks.done=metroTasks.done||{};saveMetroTasks();renderMetroTasks()}
 function saveMetroTasks(){try{localStorage.setItem(metroTasksKey(),JSON.stringify(metroTasks))}catch(e){}}
 function renderMetroTasks(){if(!metroMissionCards)return;const defs=[['distance','RUN 1,000 METRES',1000],['coins','COLLECT 25 TOKENS',25],['jumps','JUMP 12 TIMES',12]];metroMissionCards.innerHTML=defs.map(([k,label,goal])=>{const v=Math.min(goal,Math.floor(metroTasks[k]||0)),done=!!metroTasks.done[k];return `<div class="metro-mission"><b>${done?'✓ COMPLETED':label}</b><span>${v.toLocaleString()} / ${goal.toLocaleString()}</span><small>${done?'REWARD CLAIMED':'Reward: +100 Metro Coins'}</small></div>`}).join('')}
@@ -3560,7 +3506,7 @@ metroResize();}
 function metroResize(){if(!metroRenderer||!metroCamera)return;const w=Math.max(1,metroGame.clientWidth||window.innerWidth),h=Math.max(1,metroGame.clientHeight||window.innerHeight);metroCamera.aspect=w/h;metroCamera.updateProjectionMatrix();metroRenderer.setSize(w,h,false)}
 function metroApplyMode(mode){if(!metroThemes[mode])return;metroMode=mode;const pal=metroThemes[mode];if(metroScene){metroScene.background.setHex(pal.sky);metroScene.fog.color.setHex(pal.fog);metroSegments.forEach(g=>g.children.forEach(m=>{if(m.material&&m.geometry&&m.geometry.type==='PlaneGeometry')m.material.color.setHex(pal.ground)}));metroBuildings.forEach((b)=>b.mesh.material.color.setHex(pal.building[b.index%pal.building.length]));if(metroIntroTrain&&metroIntroTrain.children[0])metroIntroTrain.children[0].material.color.setHex(pal.train)}document.querySelectorAll('.metro-mode').forEach(b=>b.classList.toggle('selected',b.dataset.mode===mode));}
 function metroEnsureScene(){if(metroThreeReady)return true;if(typeof THREE==='undefined'){metroToast('3D engine needs internet. Reload when online.');return false}try{metroBuildWorld();metroThreeReady=true;return true}catch(e){console.error('Metro Rush 3D init failed:',e);metroToast('3D scene could not start. Try another browser.');return false}}
-function startMetroRush(){updateMetroProfileStats();loadMetroTasks();metroState='ready';metroDistance=0;metroRunCoins=0;metroSpeed=18;metroSpawnTimer=.8;metroTokenTimer=.4;metroLane=1;metroLaneX=0;metroJump=0;metroSlide=0;metroJumps=0;metroSlides=0;metroRunTime=0;metroStart.style.display='flex';metroOver.classList.remove('show');metroHud.style.display='none';document.getElementById('metroBottomHint').style.display='none';document.getElementById('metroPlayerHint').innerHTML=window.activePlayer?'PLAYER: '+metroEscapeHtml(window.activePlayer.name)+' · PID '+window.activePlayer.pid+'<br>Swipe ◀ ▶ to change track · ↑ jump · ↓ slide':'GUEST MODE · Your best run is saved on this device.<br>Swipe ◀ ▶ to change track · ↑ jump · ↓ slide';document.getElementById('metroStartButton').textContent='TAP TO START RUN';if(metroEnsureScene()){metroApplyMode(metroMode);metroIntroTrain.visible=true;metroPlayer.visible=true;metroPlayer.position.set(-2.45,0,1.7);metroCameraMode='third';document.getElementById('cameraToggle').textContent='THIRD PERSON';if(metroLoopId)cancelAnimationFrame(metroLoopId);metroClock.getDelta();metroLoopId=requestAnimationFrame(metroRender)}renderMetroTasks();}
+function startMetroRush(){updateMetroProfileStats();loadMetroTasks();metroState='ready';metroDistance=0;metroRunCoins=0;metroSpeed=18;metroSpawnTimer=.8;metroTokenTimer=.4;metroLane=1;metroLaneX=0;metroJump=0;metroSlide=0;metroJumps=0;metroSlides=0;metroRunTime=0;metroStart.style.display='flex';metroOver.classList.remove('show');metroHud.style.display='none';document.getElementById('metroBottomHint').style.display='none';document.getElementById('metroPlayerHint').textContent='GUEST MODE · Progress is saved on this device. Swipe ◀ ▶ to change track · ↑ jump · ↓ slide';document.getElementById('metroStartButton').textContent='TAP TO START RUN';if(metroEnsureScene()){metroApplyMode(metroMode);metroIntroTrain.visible=true;metroPlayer.visible=true;metroPlayer.position.set(-2.45,0,1.7);metroCameraMode='third';document.getElementById('cameraToggle').textContent='THIRD PERSON';if(metroLoopId)cancelAnimationFrame(metroLoopId);metroClock.getDelta();metroLoopId=requestAnimationFrame(metroRender)}renderMetroTasks();}
 function stopMetroRush(){if(metroLoopId)cancelAnimationFrame(metroLoopId);metroLoopId=0;metroState='stopped';}
 function metroRender(){if(!window.metroIsOpen||!metroRenderer)return;const dt=Math.min(metroClock.getDelta(),.045);if(metroState==='run')metroUpdate(dt);else if(metroPlayer){const t=performance.now()*.001;metroPlayer.userData.armL.rotation.x=Math.sin(t*3)*.08;metroPlayer.userData.armR.rotation.x=-Math.sin(t*3)*.08;}
 if(metroRenderer&&metroScene)metroRenderer.render(metroScene,metroCamera);metroLoopId=requestAnimationFrame(metroRender)}
@@ -3574,7 +3520,7 @@ metroSetCamera();if(performance.now()-metroLastHud>180){document.getElementById(
 function metroJumpAction(){if(metroState!=='run'||metroJump>0||metroSlide>0)return;metroJump=.72;metroJumps++;updateTaskValue('jumps',1)}
 function metroSlideAction(){if(metroState!=='run'||metroSlide>0||metroJump>0)return;metroSlide=.72;metroSlides++}
 function metroLaneMove(dir){if(metroState!=='run')return;metroLane=Math.max(0,Math.min(2,metroLane+dir))}
-function metroCrash(){if(metroState!=='run')return;metroState='over';metroPlayer.visible=true;if(metroDistance>metroBestDistance){metroBestDistance=Math.floor(metroDistance);try{localStorage.setItem(metroPlayerKey(),String(metroBestDistance))}catch(e){}}try{localStorage.setItem(metroCoinsKey(),String(metroTotalCoins))}catch(e){}saveMetroTasks();updateMetroProfileStats();document.getElementById('metroRunDistance').textContent=Math.floor(metroDistance)+' m';document.getElementById('metroRunCoins').textContent=metroRunCoins;document.getElementById('metroOverText').textContent=window.activePlayer?window.activePlayer.name+', your run is complete. Beat '+Math.floor(metroBestDistance)+' m on your next run!':'Your guest run is complete. Beat '+Math.floor(metroBestDistance)+' m on your next run!';metroOver.classList.add('show');document.getElementById('metroBottomHint').style.display='none'}
+function metroCrash(){if(metroState!=='run')return;metroState='over';metroPlayer.visible=true;if(metroDistance>metroBestDistance){metroBestDistance=Math.floor(metroDistance);try{localStorage.setItem(metroPlayerKey(),String(metroBestDistance))}catch(e){}}try{localStorage.setItem(metroCoinsKey(),String(metroTotalCoins))}catch(e){}saveMetroTasks();updateMetroProfileStats();document.getElementById('metroRunDistance').textContent=Math.floor(metroDistance)+' m';document.getElementById('metroRunCoins').textContent=metroRunCoins;document.getElementById('metroOverText').textContent='Your run is complete. Beat '+Math.floor(metroBestDistance)+' m on your next run!';metroOver.classList.add('show');document.getElementById('metroBottomHint').style.display='none'}
 function metroStartRun(){if(!metroThreeReady||metroState==='run')return;metroState='run';metroDistance=0;metroRunCoins=0;metroJumps=0;metroSlides=0;metroSpeed=18;metroLane=1;metroLaneX=0;metroJump=0;metroSlide=0;metroSpawnTimer=.9;metroTokenTimer=.6;metroObstacles.forEach(o=>metroScene.remove(o));metroTokens.forEach(o=>metroScene.remove(o));metroObstacles=[];metroTokens=[];metroIntroTrain.visible=false;metroPlayer.visible=metroCameraMode!=='first';metroPlayer.position.set(0,0,1.7);metroPlayer.scale.set(1,1,1);metroCamera.position.set(0,4.6,8.9);metroSetCamera();metroStart.style.display='none';metroOver.classList.remove('show');metroHud.style.display='flex';document.getElementById('metroBottomHint').style.display='block';document.getElementById('metroBottomHint').textContent='SWIPE ◀ ▶ CHANGE TRACK · ↑ JUMP · ↓ SLIDE';try{if(metroGame.requestFullscreen)metroGame.requestFullscreen().catch(()=>{})}catch(e){}}
 function metroRestart(){metroOver.classList.remove('show');metroStart.style.display='flex';metroState='ready';startMetroReadyOverlay()}
 function startMetroReadyOverlay(){metroStart.style.display='flex';document.getElementById('metroStartButton').textContent='TAP TO START RUN'}
@@ -3589,5 +3535,7 @@ window.addEventListener('resize',metroResize);document.addEventListener('visibil
 window.updateMetroProfileStats=updateMetroProfileStats;
 
 </script>
+
+
 </body>
 </html>
